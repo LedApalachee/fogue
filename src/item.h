@@ -20,7 +20,7 @@ typedef struct ItemInfo
 	int volume;
 	darray content; // struct Entity*
 
-	darray effects; // int
+	darray effects; // struct Effect
 
 	uint8_t flags;
 } ItemInfo;

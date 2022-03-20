@@ -86,6 +86,9 @@ typedef struct Tile
 #define tile_contains_creatures 2
 
 
+void move_entity_on_tile(struct Level* level, Entity* entity, Tile* dest_tile);
+
+
 
 
 typedef struct Map
@@ -95,7 +98,8 @@ typedef struct Map
 	uint8_t flags;
 } Map;
 
-#define get_tile(map_ptr, x, y) (map_ptr->tiles[y * map_ptr->sizeX + x])
+
+#define get_tile(map_ptr, x, y) (map_ptr->tiles + y * map_ptr->sizeX + x)
 
 
 

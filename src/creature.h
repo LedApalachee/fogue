@@ -23,7 +23,7 @@ typedef struct CreatureInfo
 	struct Entity* wielded_item;
 	darray worn_items; // struct Entity*
 
-	darray effects; // int
+	darray effects; // struct Effect
 
 	uint8_t flags;
 } CreatureInfo;
