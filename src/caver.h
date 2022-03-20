@@ -9,12 +9,12 @@
 // speaking generally - an entity is any material thing in the world
 typedef struct Entity
 {
-	int id; // actual only on certain level
+	int id;
 	char* name;
 	char* description;
 	struct Symbol symbol;
 
-	int pos_x, pos_y; // position on the level map
+	int pos_x, pos_y;
 
 	int type; // is it creature, item or map object (or maybe other thing)
 
@@ -25,13 +25,13 @@ typedef struct Entity
 	// (e.g. canines, traders, flying_beings, ranged_weapons, and more)
 	darray groups; // int
 
-	void (take_turn*)(struct Level*, struct Entity*); // if it's null, the entity does nothing
+	void (take_turn*)(struct Level*, struct Entity*);
 
 	uint8_t flags;
 } Entity;
 
 
-#define entity_is_busy 1 // the entity might participate in a long interaction or other reason
+#define entity_is_busy 1 // the entity might participate in a long interaction
 #define entity_is_not_on_map 2 // e.g. when the entity is in a backpack or a chest
 
 
@@ -105,10 +105,11 @@ typedef struct Level
 	Map map;
 
 	// list of all entities on the level
-	darray creatures; // struct Entity*
-	darray items; // struct Entity*
-	darray map_objects; // struct Entity*
-	darray projectiles; // struct Entity*
+	// struct Entity*
+	darray creatures;
+	darray items;
+	darray map_objects;
+	darray projectiles;
 
 	uint64_t time; // counts turns
 
