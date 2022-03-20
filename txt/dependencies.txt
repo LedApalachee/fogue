@@ -1,0 +1,5 @@
+This project uses the following stuff:
+
+() darray
+dynamicly resizable array library, made by me
+https://github.com/LedApalachee/darray
