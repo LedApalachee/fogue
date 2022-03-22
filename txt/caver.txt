@@ -43,3 +43,10 @@ Interaction
 3) this function does required actions
 
 Interactions may take some time untill finishing. During this time, entities that participate in this interaction will not take their turns and will be marked as busy
+
+
+
+
+/*    BEHAVIOR    */
+
+Every entity can behave its own way: e.g. 

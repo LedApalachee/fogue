@@ -29,6 +29,18 @@ typedef struct CreatureInfo
 } CreatureInfo;
 
 
+typedef struct CreatureBehavior
+{
+
+} CreatureBehavior;
+
+
+typedef enum CreatureEffect
+{
+	creature_effect_max,
+} CreatureEffect;
+
+
 void creature_on_new_level(struct Entity* creature); // must be called when the creature gains new level
 
 

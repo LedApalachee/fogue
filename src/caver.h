@@ -9,7 +9,6 @@
 // speaking generally - an entity is any material thing in the world
 typedef struct Entity
 {
-	int id;
 	char* name;
 	char* description;
 	struct Symbol symbol;
@@ -25,7 +24,7 @@ typedef struct Entity
 	// (e.g. canines, traders, flying_beings, ranged_weapons, and more)
 	darray groups; // int
 
-	void (take_turn*)(struct Level*, struct Entity*);
+	void* behavior;
 
 	uint8_t flags;
 } Entity;
