@@ -4,6 +4,8 @@
 
 typedef enum CreatureGroup
 {
+	creature_group_none,
+
 	creature_group_max
 } CreatureGroup;
 
@@ -12,6 +14,8 @@ typedef enum CreatureGroup
 
 typedef enum ItemGroup
 {
+	item_group_none,
+
 	item_group_max
 } ItemGroup;
 
@@ -20,7 +24,9 @@ typedef enum ItemGroup
 
 typedef enum MapObjectGroup
 {
-	map_object_group_max
+	mapobject_group_none,
+
+	mapobject_group_max
 } MapObjectGroup;
 
 

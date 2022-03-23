@@ -6,36 +6,69 @@
 
 typedef struct ItemInfo
 {
-	double weight;
+	double mass;
 	double size;
 	int condition; // if it's less than 0, the item is considered broken, rotten, ragged, etc.
 	int min_condition; // if current condition is equal or less than this, the item is completely destroyed and must be deleted
 
-	int damage; // when wielded; if the number is negative, the item is not a weapon
-	int defence; // when worn; if the number is negative, the item is not a wear
-	int nutrition; // when eaten; if the number is negative, the item is not comestible
-	int quench; // when drunk; if the number is negative, the item is not a liquid
+	int melee_damage; // when wielded; if the number is negative, the item can't serve as a melee weapon
+	int defence; // when worn; if the number is negative, the item can't serve as a wear
 
-	// if the item is inventory (bag, backpack, etc.)
-	int volume; // if it's greater than 0, the item can be used as storage
-	darray content; // struct Entity*
-
-	darray effects; // struct Effect
+	struct ItemComestibleInfo* comestible_info; // if it's null, the item is not comestible
+	struct ItemStorageInfo* storage_info; // if it's null, the item can't serve as a storage
+	struct ItemRangedInfo* ranged_info; // if it's null, the item is not a ranged weapon
 
 	uint8_t flags;
 } ItemInfo;
+
+
+
+
+typedef enum ItemEffect
+{
+	item_effect_none,
+
+	item_effect_max
+} ItemEffect;
+
+
+
+
+typedef struct ItemStorageInfo
+{
+	int free_volume;
+	int max_volume;
+	darray content; // struct Entity*
+} ItemStorageInfo;
+
+
+
+
+typedef struct ItemRangedInfo
+{
+	darray availible_ammo; // enum ItemGroup (int)
+	int capacity;
+	darray magazine; // struct Entity*
+	double linear_momentum; // holy fu*ck, this game has physics!
+} ItemRangedInfo;
+
+
+
+
+typedef struct ItemComestibleInfo
+{
+	int nutrition;
+	int quench;
+	ItemEffect effect; // activates when it's eaten or drunk
+} ItemComestibleInfo;
+
+
 
 
 typedef struct ItemBehavior
 {
 
 } ItemBehavior;
-
-
-typedef enum ItemEffect
-{
-	item_effect_max,
-} ItemEffect;
 
 
 #endif

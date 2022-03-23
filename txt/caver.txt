@@ -8,9 +8,9 @@ I want this game to be not centered on the player - he is the same creature as a
 
 
 
-/*    PLAYER WILL CAN    */
+/*    PLAYER WILL    */
 
-() Dig trough rock
+() Dig through rock
 () Mine gems
 () Build constructions (blocks, barricades, some aggregates and more)
 () Fight with creatures
@@ -18,6 +18,7 @@ I want this game to be not centered on the player - he is the same creature as a
 () Interact with environment (e.g. push levers and buttons, engrave walls and floors, etc.)
 () Craft things
 () Cook
+() Have fun
 
 
 
@@ -35,18 +36,19 @@ Interaction
 	active entity
 	passive entity
 	required information // e.g. wich item will be used
-	duration // how many turns it will take
 }
 
 1) an entity starts an interaction with another entity
 2) the game calls proper function to operate this interaction
-3) this function does required actions
-
-Interactions may take some time untill finishing. During this time, entities that participate in this interaction will not take their turns and will be marked as busy
+3) this function does proper actions
 
 
 
 
 /*    BEHAVIOR    */
 
-Every entity can behave its own way: e.g. 
+Behavior of creatures, items and mapobjects (and possibly other things) will be described in special structs, which will
+contain various information, including flags (actually, the whole idea is based on usage of flags).
+Functions that process entities' turns, will look up in this structs to decide which actions to do.
+So will do, probably, functions that process interactions between entities
+This approach makes construction of NPCs' brains more convenient, especially for those who'd like to edit raw files

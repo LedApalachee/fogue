@@ -23,10 +23,10 @@ typedef struct CreatureInfo
 	struct Entity* wielded_item;
 	darray worn_items; // struct Entity*
 
-	darray effects; // struct Effect
-
 	uint8_t flags;
 } CreatureInfo;
+
+
 
 
 typedef struct CreatureBehavior
@@ -35,9 +35,13 @@ typedef struct CreatureBehavior
 } CreatureBehavior;
 
 
+
+
 typedef enum CreatureEffect
 {
-	creature_effect_max,
+	creature_effect_none,
+
+	creature_effect_max
 } CreatureEffect;
 
 

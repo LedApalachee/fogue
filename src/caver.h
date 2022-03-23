@@ -9,13 +9,15 @@
 // speaking generally - an entity is any material thing in the world
 typedef struct Entity
 {
+	int id;
 	char* name;
 	char* description;
 	struct Symbol symbol;
 
-	int pos_x, pos_y;
+	int pos_x;
+	int pos_y;
 
-	int type; // is it creature, item or map object (or maybe other thing)
+	uint8_t type; // is it creature, item or map object (or maybe other thing)
 
 	// each type of entities has its own set of information
 	void* info;
@@ -23,6 +25,8 @@ typedef struct Entity
 	// every entity can be a member of various groups
 	// (e.g. canines, traders, flying_beings, ranged_weapons, and more)
 	darray groups; // int
+
+	darray effects; // struct Effect
 
 	void* behavior;
 
@@ -37,7 +41,7 @@ typedef struct Entity
 typedef enum EntityType
 {
 	entity_nothing,
-	entity_map_object,
+	entity_mapobject,
 	entity_creature,
 	entity_item,
 	entity_projectile,
@@ -54,7 +58,6 @@ typedef struct Interaction
 	Entity* active;
 	Entity* passive;
 	void* info;
-	int duration;
 } Interaction;
 
 
@@ -107,11 +110,10 @@ typedef struct Level
 {
 	Map map;
 
-	// list of all entities on the level
 	// struct Entity*
 	darray creatures;
 	darray items;
-	darray map_objects;
+	darray mapobjects;
 	darray projectiles;
 
 	uint64_t time; // counts turns
