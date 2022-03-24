@@ -39,4 +39,9 @@ typedef enum MapObjectEffect
 } MapObjectEffect;
 
 
+
+
+struct Entity* new_mapobject(uint8_t generation_flags); // adds new mapobject into the level in a certain way
+
+
 #endif

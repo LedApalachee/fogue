@@ -84,8 +84,9 @@ typedef struct Tile
 } Tile;
 
 
-#define tile_is_passable 1
+#define tile_transmits_light 1
 #define tile_contains_creatures 2
+#define tile_contains_items 8
 
 
 void move_entity_on_tile(struct Level* level, Entity* entity, Tile* dest_tile);
@@ -108,6 +109,8 @@ typedef struct Map
 
 typedef struct Level
 {
+	char* name;
+	int type;
 	Map map;
 
 	// struct Entity*

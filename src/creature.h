@@ -45,6 +45,8 @@ typedef enum CreatureEffect
 } CreatureEffect;
 
 
+
+
 void creature_on_new_level(struct Entity* creature); // must be called when the creature gains new level
 
 
