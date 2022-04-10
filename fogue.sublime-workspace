@@ -1,0 +1,499 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Li",
+				"LimbPurpose"
+			],
+			[
+				"Fea",
+				"FeatureInfo"
+			],
+			[
+				"F",
+				"FeatureType"
+			],
+			[
+				"Crea",
+				"CreatureSpecialEffect"
+			],
+			[
+				"uint",
+				"uint16_t"
+			],
+			[
+				"En",
+				"EntityType"
+			],
+			[
+				"Ite",
+				"ItemWearInfo"
+			],
+			[
+				"uint_",
+				"uint16_t"
+			],
+			[
+				"C",
+				"CreatureEffectInfo"
+			],
+			[
+				"Re",
+				"ReadCreatureSettings"
+			],
+			[
+				"Rea",
+				"ReadCreatureSettings"
+			],
+			[
+				"creature",
+				"creature_group_max"
+			],
+			[
+				"Item",
+				"ItemEffect"
+			],
+			[
+				"ItemB",
+				"ItemBagInfo"
+			],
+			[
+				"Bag",
+				"ItemBagInfo"
+			],
+			[
+				"Map",
+				"MapObjectBehavior"
+			],
+			[
+				"I",
+				"ItemBehavior"
+			],
+			[
+				"P",
+				"ProjectileInfo"
+			],
+			[
+				"cha",
+				"change_n"
+			],
+			[
+				"Effect",
+				"EffectType"
+			],
+			[
+				"In",
+				"Inventory"
+			],
+			[
+				"E",
+				"Equipment"
+			],
+			[
+				"Creature",
+				"CreatureInfo"
+			],
+			[
+				"prin",
+				"fprintf"
+			],
+			[
+				"We",
+				"WeatherFactor"
+			],
+			[
+				"Tem",
+				"TemperatureType"
+			],
+			[
+				"char",
+				"char_floor"
+			],
+			[
+				"putwall",
+				"putwallX"
+			],
+			[
+				"map",
+				"mapsizeX"
+			],
+			[
+				"put",
+				"putwallX"
+			],
+			[
+				"came",
+				"cameraX"
+			],
+			[
+				"ca",
+				"cameraX"
+			],
+			[
+				"p",
+				"putwallY"
+			],
+			[
+				"re",
+				"returning_value"
+			],
+			[
+				"cam",
+				"cameraY"
+			],
+			[
+				"char_",
+				"char_unseenable"
+			],
+			[
+				"ren",
+				"render_set_char"
+			],
+			[
+				"h",
+				"handleline"
+			],
+			[
+				"han",
+				"handleline"
+			],
+			[
+				"ma",
+				"mapsizeX"
+			],
+			[
+				"ste",
+				"step_y"
+			],
+			[
+				"slp",
+				"slope_abs"
+			],
+			[
+				"pr",
+				"printf"
+			],
+			[
+				"dar_",
+				"dar_pull"
+			],
+			[
+				"render",
+				"render_get_char"
+			],
+			[
+				"init",
+				"init_render"
+			],
+			[
+				"item_food_be",
+				"item_food_vegetables_begin"
+			],
+			[
+				"size",
+				"sizeY"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/ledapalachee/projs/fogue",
+		"/home/ledapalachee/projs/fogue/src"
+	],
+	"file_history":
+	[
+		"/home/ledapalachee/projs/fogue/src/level.h",
+		"/home/ledapalachee/projs/fogue/src/creature.h",
+		"/home/ledapalachee/projs/fogue/src/fogue.h",
+		"/home/ledapalachee/projs/fogue/src/feature.h",
+		"/home/ledapalachee/projs/fogue/src/item.h",
+		"/home/ledapalachee/projs/fogue/src/effects.h",
+		"/home/ledapalachee/projs/fogue/src/mapobject.h",
+		"/home/ledapalachee/projs/fogue/src/entity.h",
+		"/home/ledapalachee/projs/fogue/src/fogue.hpp",
+		"/home/ledapalachee/projs/caver/txt/ddl.txt",
+		"/home/ledapalachee/projs/caver/src/behavior.h",
+		"/home/ledapalachee/projs/caver/src/creature.h",
+		"/home/ledapalachee/projs/caver/src/effects.h",
+		"/home/ledapalachee/projs/caver/src/entity.h",
+		"/home/ledapalachee/projs/caver/src/interactions.h",
+		"/home/ledapalachee/projs/caver/src/level.h",
+		"/home/ledapalachee/projs/caver/src/item.h",
+		"/home/ledapalachee/projs/caver/src/projectile.h",
+		"/home/ledapalachee/projs/caver/txt/EDFS.txt",
+		"/home/ledapalachee/projs/caver/src/txttodat.c",
+		"/home/ledapalachee/projs/caver/src/mapobject.h",
+		"/home/ledapalachee/projs/caver/src/data.h",
+		"/home/ledapalachee/.bashrc",
+		"/home/ledapalachee/games/df/data/init/init.txt",
+		"/home/ledapalachee/projs/caver/txt/caver.txt",
+		"/home/ledapalachee/projs/caver/src/creature_template.h",
+		"/home/ledapalachee/projs/caver/src/groups.h",
+		"/home/ledapalachee/projs/caver/src/map_object.h",
+		"/home/ledapalachee/.config/sublime-text/Packages/User/Preferences.sublime-settings",
+		"/home/ledapalachee/.wgetrc",
+		"/home/ledapalachee/projs/ebal/txt/game_map.txt",
+		"/home/ledapalachee/projs/ebal/txt/ebal.txt",
+		"/home/ledapalachee/projs/caver/src/caver.h",
+		"/home/ledapalachee/projs/grandrpg/src/world.h",
+		"/home/ledapalachee/projs/grandrpg/src/realm.h",
+		"/home/ledapalachee/projs/grandrpg/src/weather.h",
+		"/home/ledapalachee/projs/grandrpg/src/creatures.h",
+		"/media/ledapalachee/CA2E99402E99270B/games/dwarf fortress/data/init/init.txt",
+		"/home/ledapalachee/games/df/readme.txt",
+		"/media/ledapalachee/CA2E99402E99270B/games/dwarf fortress/readme.txt",
+		"/home/ledapalachee/projs/caver/.gitignore",
+		"/home/ledapalachee/projs/caver/src/main.c",
+		"/home/ledapalachee/projs/caver/data/map_objects.txt",
+		"/home/ledapalachee/projs/darray/darray.h",
+		"/home/ledapalachee/projs/darray/darray.c",
+		"/home/ledapalachee/projs/darray/darray.",
+		"/usr/include/darray.h",
+		"/home/ledapalachee/projs/darray/test.c",
+		"/home/ledapalachee/test/var.h",
+		"/home/ledapalachee/test/func.c",
+		"/home/ledapalachee/test/test.c",
+		"/home/ledapalachee/projs/caver/src/creatures.h",
+		"/home/ledapalachee/projs/caver/src/items.h",
+		"/home/ledapalachee/projs/caver/src/graphics.h",
+		"/home/ledapalachee/projs/caver/txt/locations.txt",
+		"/etc/nethack/sysconf",
+		"/etc/nethack/nethackrc.console",
+		"/etc/nethack/nethackrc.tty",
+		"/home/ledapalachee/.nethackrc",
+		"/usr/games/nethack-console",
+		"/usr/gamesnethack-console",
+		"/usr/lib/games/nethack/nethack-console.sh",
+		"/home/ledapalachee/projs/caver/txt/dependencies.txt",
+		"/home/ledapalachee/projs/caver/txt/creatures.txt",
+		"/home/ledapalachee/projs/caver/data/creatures.txt",
+		"/home/ledapalachee/projs/caver/src/actions.h",
+		"/home/ledapalachee/games/mnb/start.sh",
+		"/home/ledapalachee/games/mnb/support/gog_com.shlib",
+		"/home/ledapalachee/downloads/Mount & Blade: Warband [GOG] [Linux]/gog_mount_blade_warband_2.9.0.17.sh",
+		"/home/ledapalachee/test/main.c",
+		"/home/ledapalachee/games/df/raw/objects/language_words.txt",
+		"/home/ledapalachee/games/df/raw/objects/reaction_other.txt",
+		"/home/ledapalachee/games/df/raw/objects/inorganic_metal.txt",
+		"/home/ledapalachee/games/df/raw/objects/building_custom.txt",
+		"/home/ledapalachee/games/df/raw/objects/b_detail_plan_default.txt",
+		"/home/ledapalachee/games/df/raw/objects/body_default.txt",
+		"/home/ledapalachee/games/df/raw/objects/c_variation_default.txt",
+		"/home/ledapalachee/games/df/raw/objects/entity_default.txt",
+		"/home/ledapalachee/games/df/raw/objects/creature_standard.txt",
+		"/home/ledapalachee/games/df/raw/interaction examples/example - bogeyman transformation.txt",
+		"/home/ledapalachee/games/df/raw/objects/creature_birds.txt",
+		"/home/ledapalachee/test/build",
+		"/home/ledapalachee/test/dude.h",
+		"/home/ledapalachee/test/say_something.c",
+		"/home/ledapalachee/test/main,c",
+		"/etc/angband/edit/monster_base.txt",
+		"/etc/angband/edit/object.txt",
+		"/etc/angband/edit/monster.txt",
+		"/etc/angband/edit/object_base.txt",
+		"/etc/angband/edit/terrain.txt",
+		"/etc/angband/edit/names.txt",
+		"/usr/share/angband/info/readme.txt",
+		"/media/ledapalachee/CA2E99402E99270B/games/Civilization III/Conquests/Text/Civilopedia.txt",
+		"/home/ledapalachee/.cache/.fr-q7rs90/Readme.txt",
+		"/home/ledapalachee/projs/caver/test",
+		"/home/ledapalachee/projs/caver/build",
+		"/home/ledapalachee/projs/myrpg/txt/world.txt",
+		"/home/ledapalachee/projs/myrpg/src/world.h",
+		"/home/ledapalachee/projs/myrpg/src/realm.h",
+		"/home/ledapalachee/study/project/project_plan.txt",
+		"/home/ledapalachee/projs/myrpg/src/region.h",
+		"/home/ledapalachee/projs/myrpg/src/util.h",
+		"/home/ledapalachee/projs/myrpg/src/objects.h",
+		"/home/ledapalachee/projs/myrpg/src/weather.h",
+		"/home/ledapalachee/projs/myrpg/src/items.h",
+		"/home/ledapalachee/projs/myrpg/txt/map.txt",
+		"/home/ledapalachee/projs/myrpg/txt/frogue.txt",
+		"/home/ledapalachee/projs/fov_test/run",
+		"/home/ledapalachee/projs/fov_test/build",
+		"/home/ledapalachee/projs/fov_test/main.c",
+		"/home/ledapalachee/projs/fov/main.c",
+		"/home/ledapalachee/projs/handleline/handleline.c",
+		"/home/ledapalachee/projs/handleline/handleline.h",
+		"/home/ledapalachee/projs/handleline/test.c",
+		"/usr/include/handleline.h",
+		"/home/ledapalachee/projs/handleline/build",
+		"/home/ledapalachee/projs/fov/build",
+		"/home/ledapalachee/.config/unity3d/Streets of Rogue/Streets of Rogue/prefs",
+		"/home/ledapalachee/.config/Trolltech.conf",
+		"/home/ledapalachee/.config/unity3d/Streets of Rogue/Streets of Rogue/Player.log",
+		"/home/ledapalachee/games/sor/Data/Mono/etc/mono/config",
+		"/home/ledapalachee/.config/unity3d/Streets of Rogue/Streets of Rogue/TechSettings.dat",
+		"/home/ledapalachee/games/sor/StreetsOfRogueLinux_Data/boot.config",
+		"/home/ledapalachee/projs/handleline/buildlib",
+		"/home/ledapalachee/projs/handleline/.gitignore",
+		"/home/ledapalachee/projs/makeline/main.c",
+		"/home/ledapalachee/projs/makeline/makeline.c",
+		"/home/ledapalachee/projs/makeline/main_old.c"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			";\n",
+			"x1",
+			"#",
+			"c"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "fogue.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 169.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

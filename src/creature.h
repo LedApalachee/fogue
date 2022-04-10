@@ -1,53 +1,56 @@
-#ifndef creatures_h
-#define creatures_h
-
-#include <darray.h>
+#ifndef creature_h
+#define creature_h
 
 
-typedef struct CreatureInfo
+typedef struct Limb
 {
-	char* personal_name;
-	double size;
-
-	int level;
 	int hp, max_hp;
-	int xp, max_xp;
+	struct Item* armor;
+	struct Item* wielded;
+	uint8_t purpose;
+} Limb;
+
+#define MAX_LIMBS 16
+
+#define LIMB_endoflimbs 1
+#define LIMB_WALK 2
+#define LIMB_HANDLE 4
+#define LIMB_VITAL 8 // when it's destroyed, the creature dies
+
+
+typedef struct Creature
+{
+	int id;
+	char* name;
+	char ch;
+
+	int posX, posY;
+	int hp, hp_max;
 
 	int strength;
-	int constitution;
 	int dexterity;
+	int intelligence;
+
+	Limb body[MAX_LIMBS];
+} Creature;
+
+
+typedef struct Player
+{
+	int posX, posY;
+	int hp, hp_max;
+	int xp, xp_max;
+	int level;
+
+	int strength;
+	int dexterity;
+	int constitution;
 	int intelligence;
 	int wisdom;
 	int charisma;
 
-	struct Entity* wielded_item;
-	darray worn_items; // struct Entity*
-
-	uint8_t flags;
-} CreatureInfo;
-
-
-
-
-typedef struct CreatureBehavior
-{
-
-} CreatureBehavior;
-
-
-
-
-typedef enum CreatureEffect
-{
-	creature_effect_none,
-
-	creature_effect_max
-} CreatureEffect;
-
-
-
-
-void creature_on_new_level(struct Entity* creature); // must be called when the creature gains new level
+	Limb body[MAX_LIMBS];
+} Player;
 
 
 #endif
