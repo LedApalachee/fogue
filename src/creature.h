@@ -1,21 +1,36 @@
 #ifndef creature_h
 #define creature_h
 
+#include <stdint.h>
+
 
 typedef struct Limb
 {
-	int hp, max_hp;
+	int16_t hp, max_hp;
+	uint8_t type;
 	struct Item* armor;
-	struct Item* wielded;
-	uint8_t purpose;
+	struct Item* weapon;
+	uint8_t flags;
 } Limb;
 
 #define MAX_LIMBS 16
 
-#define LIMB_endoflimbs 1
-#define LIMB_WALK 2
-#define LIMB_HANDLE 4
-#define LIMB_VITAL 8 // when it's destroyed, the creature dies
+typedef enum LimbType
+{
+	LIMB_NONE,
+	LIMB_HEAD,
+	LIMB_TORSO,
+	LIMB_LEG,
+	LIMB_ARM,
+	LIMB_TAIL,
+} LimbType;
+
+#define LIMB_IS_VITAL 1
+#define LIMB_CAN_WIELD 2
+#define LIMB_CAN_WEAR 4
+
+
+#define CREATURE_MAX_EFFECTS 16
 
 
 typedef struct Creature
@@ -24,12 +39,13 @@ typedef struct Creature
 	char* name;
 	char ch;
 
-	int posX, posY;
-	int hp, hp_max;
+	int16_t posX, posY;
 
-	int strength;
-	int dexterity;
-	int intelligence;
+	int16_t strength;
+	int16_t dexterity;
+	int16_t intelligence;
+
+	uint16_t effects[CREATURE_MAX_EFFECTS];
 
 	Limb body[MAX_LIMBS];
 } Creature;
@@ -37,17 +53,19 @@ typedef struct Creature
 
 typedef struct Player
 {
-	int posX, posY;
-	int hp, hp_max;
-	int xp, xp_max;
-	int level;
+	char* name;
+	int16_t posX, posY;
+	int16_t xp, xp_max;
+	int16_t level;
 
-	int strength;
-	int dexterity;
-	int constitution;
-	int intelligence;
-	int wisdom;
-	int charisma;
+	int16_t strength;
+	int16_t dexterity;
+	int16_t constitution;
+	int16_t intelligence;
+	int16_t wisdom;
+	int16_t charisma;
+
+	int effects[CREATURE_MAX_EFFECTS];
 
 	Limb body[MAX_LIMBS];
 } Player;

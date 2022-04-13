@@ -1,37 +1,27 @@
 #ifndef level_h
 #define level_h
 
-
-// features
-#define CHAR_NONE ' '
-#define CHAR_FLOOR '.'
-#define CHAR_WALL '#'
-#define CHAR_DOOR_CLOSED '+'
-#define CHAR_DOOR_OPENED '\''
-#define CHAR_CHEST '='
-
-
-// items
-#define CHAR_WEAPON ')'
-#define CHAR_ARMOR ']'
-#define CHAR_MISSILE ';'
-#define CHAR_COMESTIBLE '%'
-#define CHAR_POTION '!'
-#define CHAR_GOLD '$'
+#include <stdint.h>
 
 
 typedef struct Tile
 {
 	char feature;
-	int item_id;
-	int creature_id;
+	int item_id; // if it's 0, there is no item
+	int creature_id; // the same to creatures
+	uint8_t flags;
 } Tile;
 
+#define TILE_IS_PASSABLE 1
+#define TILE_IS_TRANSPARENT 2
+#define TILE_CONTAINS_PLAYER 4
+#define TILE_IS_DESTROYABLE 8
 
-#define LEVEL_MAX_CREATURES 128
+
+#define LEVEL_MAX_CREATURES 64
 #define LEVEL_MAX_ITEMS 256
 
-#define LEVEL_endofentities 1
+#define LEVEL_endofarr 1
 
 
 typedef struct Level
@@ -43,7 +33,7 @@ typedef struct Level
 	Tile* map;
 
 	struct Player* player;
-	// if an element is equal to "LEVEL_endofentities", it is the end of the array (like '\0')
+	// if an element is equal to LEVEL_endofarr, this is the end of the array (like '\0')
 	struct Creature* creatures[LEVEL_MAX_CREATURES];
 	struct Item* items items[LEVEL_MAX_ITEMS];
 } Level;
