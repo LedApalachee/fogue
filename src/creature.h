@@ -2,6 +2,7 @@
 #define creature_h
 
 #include <stdint.h>
+#include "effects.h"
 
 
 typedef struct Limb
@@ -25,7 +26,8 @@ typedef enum LimbType
 	LIMB_TAIL,
 } LimbType;
 
-#define LIMB_IS_VITAL 1
+// flags in struct Limb
+#define LIMB_IS_VITAL 1 // creature can't live without this limb
 #define LIMB_CAN_WIELD 2
 #define LIMB_CAN_WEAR 4
 
@@ -45,7 +47,7 @@ typedef struct Creature
 	int16_t dexterity;
 	int16_t intelligence;
 
-	uint16_t effects[CREATURE_MAX_EFFECTS];
+	Effect effects[CREATURE_MAX_EFFECTS];
 
 	Limb body[MAX_LIMBS];
 } Creature;

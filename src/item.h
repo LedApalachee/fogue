@@ -1,13 +1,21 @@
 #ifndef item_h
 #define item_h
 
+#include <stdint.h>
+#include "effects.h"
+
+
+#define ITEM_MAX_EFFECTS 16
+
 
 typedef struct Item
 {
 	int id;
+	int type;
 	char* name;
-	char ch; // it is also an item type (look "ascii.h")
+	char ch;
 	float weight; // kg
+	Effect effects[ITEMS_MAX_EFFECTS];
 	
 	struct Weapon* weapon_info;
 	struct Armor* armor_info;
@@ -38,7 +46,7 @@ typedef struct Missile
 {
 	uint8_t type;
 	int damage;
-	uint16_t effect_type; // is activated on a targetted creature (if it's not miss, of course)
+	uint16_t effect_type; // is activated on a targetted creature
 } Missile;
 
 

@@ -33,7 +33,7 @@ typedef struct Level
 	Tile* map;
 
 	struct Player* player;
-	// if an element is equal to LEVEL_endofarr, this is the end of the array (like '\0')
+	// if an element is equal to LEVEL_endofarr, this is the end of the array (like '\0' in strings)
 	struct Creature* creatures[LEVEL_MAX_CREATURES];
 	struct Item* items items[LEVEL_MAX_ITEMS];
 } Level;
