@@ -5,12 +5,13 @@
 // features
 #define CHAR_NONE ' '
 #define CHAR_FLOOR '.'
-#define CHAR_HORIZONTAL_WALL '-'
-#define CHAR_VERTICLE_WALL '|'
-#define CHAR_BLOCK '#'
+#define CHAR_WALL '#'
 #define CHAR_DOOR_CLOSED '+'
 #define CHAR_DOOR_OPENED '\''
 #define CHAR_CHEST '='
+#define CHAR_WORKSHOP '_'
+#define CHAR_ALCHEMERY '&'
+#define CHAR_TRAP '^'
 
 
 // items
@@ -19,9 +20,10 @@
 #define CHAR_MISSILE '}'
 #define CHAR_FOOD '%'
 #define CHAR_POTION '!'
-#define CHAR_SCROLL '?'
+#define CHAR_WRITING '?'
+#define CHAR_TOOL ';'
 #define CHAR_MISC '*'
-#define CHAR_GOLD '$'
+#define CHAR_MONEY '$'
 
 
 // special
