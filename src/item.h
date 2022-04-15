@@ -14,13 +14,16 @@ typedef struct Item
 	int type;
 	char* name;
 	char ch;
-	float weight; // kg
+	float weight; // kg per each unit of item
+	int number;
 	Effect effects[ITEMS_MAX_EFFECTS];
 	
 	struct Weapon* weapon_info;
 	struct Armor* armor_info;
 	struct Missile* missile_info;
 	struct Comestible* comestible_info;
+
+	uint8_t flags;
 } Item;
 
 
@@ -56,6 +59,10 @@ typedef struct Comestible
 	int quench;
 	uint16_t effect_type; // is activated when comested
 } Comestible;
+
+
+// flags in struct Item
+#define ITEM_OWN_SLOT 1 // you can't store this item as multiple (like swords in Minecraft)
 
 
 #endif

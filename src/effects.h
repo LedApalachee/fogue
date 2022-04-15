@@ -7,7 +7,7 @@
 typedef struct Effect
 {
 	uint16_t type;
-	int time_left;
+	uint16_t time_left;
 } Effect;
 
 

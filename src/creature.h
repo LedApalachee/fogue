@@ -23,7 +23,7 @@ typedef enum LimbType
 	LIMB_TORSO,
 	LIMB_LEG,
 	LIMB_ARM,
-	LIMB_TAIL,
+	LIMB_TAIL
 } LimbType;
 
 // flags in struct Limb
@@ -33,6 +33,7 @@ typedef enum LimbType
 
 
 #define CREATURE_MAX_EFFECTS 16
+#define CREATURE_MAX_ITEMS 26
 
 
 typedef struct Creature
@@ -45,11 +46,15 @@ typedef struct Creature
 
 	int16_t strength;
 	int16_t dexterity;
+	int16_t constitution;
 	int16_t intelligence;
 
 	Effect effects[CREATURE_MAX_EFFECTS];
 
 	Limb body[MAX_LIMBS];
+
+	float lifted_weight;
+	struct Item* inventory[CREATURE_MAX_ITEMS]; // worn or wielded items aren't stored in inventory
 } Creature;
 
 
@@ -70,6 +75,7 @@ typedef struct Player
 	int effects[CREATURE_MAX_EFFECTS];
 
 	Limb body[MAX_LIMBS];
+	struct Item* inventory[CREATURE_MAX_ITEMS];
 } Player;
 
 
