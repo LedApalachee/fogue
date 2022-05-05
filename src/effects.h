@@ -25,9 +25,9 @@ typedef enum EffectType
 	EFFECT_CONFUSED,
 	EFFECT_TERRIFIED,
 	EFFECT_ENCOURAGED,
-	EFFECT_LOSTMINDED
+	EFFECT_MINDLOST
 
-	// there will be more effects
+	// there will be more effects (maybe)
 
 } EffectType;
 

@@ -33,14 +33,20 @@ typedef enum LimbType
 
 
 #define CREATURE_MAX_EFFECTS 16
-#define CREATURE_MAX_ITEMS 26
+#define CREATURE_MAX_ITEMS 27
 
 
 typedef struct Creature
 {
 	int id;
 	char* name;
-	char ch;
+	struct
+	{
+		char ch;
+		// curses color pair
+		uint8_t fg_color;
+		uint8_t bg_color;
+	} symbol;
 
 	int16_t posX, posY;
 
@@ -53,9 +59,14 @@ typedef struct Creature
 
 	Limb body[MAX_LIMBS];
 
-	float lifted_weight;
+	float lifted_weight; // max weight is depends on the strength
 	struct Item* inventory[CREATURE_MAX_ITEMS]; // worn or wielded items aren't stored in inventory
+
+	uint8_t flags;
 } Creature;
+
+
+#define CREATURE_IS_HIDDEN 1
 
 
 typedef struct Player

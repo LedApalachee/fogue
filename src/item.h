@@ -68,7 +68,7 @@ typedef struct Item
 
 	int16_t posX, posY;
 
-	float weight; // kg per each unit of item
+	float weight; // weight of a unit of the item
 	int number;
 	
 	Effect effects[ITEMS_MAX_EFFECTS];
@@ -86,6 +86,9 @@ typedef struct Item
 	uint8_t flags;
 } Item;
 
+#define ITEM_IS_UNPILABLE 1 // you can't store this item as multiple (like swords in Minecraft)
+#define ITEM_IS_HIDDEN 2
+
 typedef enum InfoType
 {
 	INFO_NONE,
@@ -97,9 +100,6 @@ typedef enum InfoType
 	INFO_MISC,
 	INFO_MONEY
 } InfoType;
-
-// flags in struct Item
-#define ITEM_IS_UNPILABLE 1 // you can't store this item as multiple (like swords in Minecraft)
 
 
 #endif

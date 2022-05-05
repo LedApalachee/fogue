@@ -1,0 +1,10 @@
+drawing of the map consists of the following steps:
+) clear the screen
+) make matrix of tiles that player can or could see
+) using Bresenham's algorithm fill this matirx with copies of tiles that spotted in player's line of sight
+) draw all objects whose IDs are in tiles of this matrix:
+	) draw feature, if it's not hidden
+	) draw item, if it's not hidden
+	) draw creature, if it's not hidden
+	) draw player
+end

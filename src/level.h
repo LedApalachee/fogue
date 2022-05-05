@@ -7,9 +7,9 @@
 typedef struct Tile
 {
 	char feature;
-	uint16_t item_id; // if it's 0, there is no item
-	uint16_t creature_id;
-	uint16_t feature_id;
+	uint16_t item_id; // if 0, there is no item
+	uint16_t creature_id; // if 0, there is no creature
+	uint16_t feature_id; // if 0, there is no feature that needs own struct
 	uint8_t flags;
 } Tile;
 
@@ -17,8 +17,6 @@ typedef struct Tile
 #define TILE_IS_TRANSPARENT 2
 #define TILE_CONTAINS_PLAYER 4
 #define TILE_IS_DESTROYABLE 8
-#define TILE_IS_HIDDEN_DOOR 16
-#define TILE_IS_HIDDEN_TRAP 32
 
 
 #define LEVEL_MAX_CREATURES 64
@@ -43,7 +41,7 @@ typedef struct Level
 	struct Feature* features[LEVEL_MAX_FEATURES];
 } Level;
 
-#define GET_TILE(level_ptr, x, y) (&map[x + y * level_ptr->sizeX])
+#define GET_TILE(level_ptr, x, y) (&level_ptr->map[x + y * level_ptr->sizeX])
 
 #define LEVEL_MAX_X 256
 #define LEVEL_MAX_Y 256

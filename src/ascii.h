@@ -5,7 +5,8 @@
 // features
 #define CHAR_NONE ' '
 #define CHAR_FLOOR '.'
-#define CHAR_WALL '#'
+#define CHAR_ROCK '#'
+#define CHAR_WALL '/'
 #define CHAR_DOOR_CLOSED '+'
 #define CHAR_DOOR_OPENED '\''
 #define CHAR_CHEST '='
