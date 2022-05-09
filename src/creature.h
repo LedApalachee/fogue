@@ -2,6 +2,7 @@
 #define creature_h
 
 #include <stdint.h>
+#include <curses.h>
 #include "effects.h"
 
 
@@ -40,15 +41,9 @@ typedef struct Creature
 {
 	int id;
 	char* name;
-	struct
-	{
-		char ch;
-		// curses color pair
-		uint8_t fg_color;
-		uint8_t bg_color;
-	} symbol;
+	chtype ch;
 
-	int16_t posX, posY;
+	int16_t pos_x, pos_y;
 
 	int16_t strength;
 	int16_t dexterity;
@@ -72,7 +67,7 @@ typedef struct Creature
 typedef struct Player
 {
 	char* name;
-	int16_t posX, posY;
+	int16_t pos_x, pos_y;
 	int16_t xp, xp_max;
 	int16_t level;
 

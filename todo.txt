@@ -1,2 +1,0 @@
-() add more trap types
-() add more effects

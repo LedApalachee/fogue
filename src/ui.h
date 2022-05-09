@@ -5,25 +5,30 @@
 #include "level.h"
 
 
-#define MAP_WIN_SIZE_Y_RATIO 0.85
-#define MAP_WIN_SIZE_X_RATIO 0.6
+#define MAPWIN_SX_RATIO 0.75
+#define MAPWIN_SY_RATIO 0.85
 
-#define TERM_MIN_X 80
-#define TERM_MIN_Y 25
+#define TERM_MIN_SX 80
+#define TERM_MIN_SY 25
+
+#define MAPWIN_PLAYER_X mapwin_sx/2
+#define MAPWIN_PLAYER_y mapwin_sy/2
 
 
-int termsize_x, termsize_y;
+int term_sx, term_sy;
 int mapwin_sx, mapwin_sy;
+int mapwin_x, mapwin_y; // coordinates of begining of the map window (they also can be negative)
 int logwin_sx, logwin_sy;
 int statswin_sx, statswin_sy;
-WINDOW* map_win;
-WINDOW* stats_win;
-WINDOW* log_win;
+WINDOW* mapwin;
+WINDOW* statswin;
+WINDOW* logwin;
 
 int ui_start();
 void ui_redraw_map(Level* level);
 void ui_finish();
 void ui_add_log(char* message);
+int ui_input();
 
 
 #define ALL_GOOD 0

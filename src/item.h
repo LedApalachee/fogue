@@ -2,6 +2,7 @@
 #define item_h
 
 #include <stdint.h>
+#include <curses.h>
 #include "effects.h"
 
 
@@ -65,13 +66,14 @@ typedef struct Item
 	int id;
 	uint16_t type;
 	char* name;
+	chtype ch;
 
 	int16_t posX, posY;
 
 	float weight; // weight of a unit of the item
 	int number;
 	
-	Effect effects[ITEMS_MAX_EFFECTS];
+	Effect effects[ITEM_MAX_EFFECTS];
 
 	uint8_t info_type;
 	union
