@@ -25,10 +25,11 @@ typedef enum EffectType
 	EFFECT_CONFUSED,
 	EFFECT_TERRIFIED,
 	EFFECT_ENCOURAGED,
-	EFFECT_MINDLOST
+	EFFECT_MINDLOST,
 
-	// there will be more effects (maybe)
-
+	// magical
+	EFFECT_INVISIBLE,
+	EFFECT_LEVITATING
 } EffectType;
 
 

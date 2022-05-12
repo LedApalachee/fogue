@@ -4,6 +4,7 @@
 #include "level.h"
 #include "creature.h"
 #include "item.h"
+#include "errors.h"
 
 
 void init_pairs()
@@ -86,5 +87,6 @@ void ui_redraw_map(Level* level)
 
 void ui_finish()
 {
+	wclear(stdscr);
 	endwin();
 }

@@ -17,8 +17,6 @@ typedef struct Chest
 #define CHEST_IS_HIDDEN 2
 
 
-
-
 typedef struct Trap
 {
 	int type;
@@ -57,6 +55,8 @@ typedef struct Door
 typedef struct Feature
 {
 	uint16_t id;
+	char ch;
+	int pos_x, pos_y;
 	union
 	{
 		Chest chest;

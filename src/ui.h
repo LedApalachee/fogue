@@ -31,8 +31,4 @@ void ui_add_log(char* message);
 int ui_input();
 
 
-#define ALL_GOOD 0
-#define TERMINAL_IS_TOO_SMALL 1
-
-
 #endif

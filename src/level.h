@@ -30,41 +30,60 @@ typedef struct Tile
 typedef struct Level
 {
 	char* name;
-	int type;
+	uint16_t type;
 
-	int sizeX, sizeY;
+	int size_x, size_y;
 	Tile* map;
 
-	struct Player* player;
+	Player* player;
 
-	struct Creature* creatures[LEVEL_MAX_CREATURES];
+	Creature* creatures[LEVEL_MAX_CREATURES];
 	int cur_creatures;
 	int c_endofarr_index;
-	int max_c_id;
 
-	struct Item* items[LEVEL_MAX_ITEMS];
+	Item* items[LEVEL_MAX_ITEMS];
 	int cur_items;
 	int i_endofarr_index;
-	int max_i_id;
 
-	struct Feature* features[LEVEL_MAX_FEATURES];
+	Feature* features[LEVEL_MAX_FEATURES];
 	int cur_features;
 	int f_endofarr_index;
-	int max_f_id;
 } Level;
 
 #define GET_TILE(level_ptr, x, y) (&level_ptr->map[x + y * level_ptr->sizeX])
 
 
-#define OBJ_NOT_FOUND 2
+
 
 Creature* find_creature(Level* level, int c_id);
 Item* find_item(Level* level, int i_id);
 Feature* find_feature(Level* level, int f_id);
 
 
-#define LEVEL_MAX_X 256
-#define LEVEL_MAX_Y 256
+// adds object to appropriate array
+// places it on the map
+// performs some other actions if they're needed
+int level_add_creature(Level* level, Creature* creature);
+int level_add_item(Level* level, Item* item);
+int level_add_feature(Level* level, Feature* feature, int pos_x, int pos_y);
+
+
+// removes object from the map
+// removes object from its array
+int level_del_creature(Level* level, int c_id);
+int level_del_item(Level* level, int i_id);
+int level_del_feature(Level* level, int f_id);
+
+
+void rearrange_array(void** arr, int* end_i) // compresses a pointer array by removing nulls from it
+
+
+Level* generate_level(/* generation options */);
+void delete_level(Level* level);
+
+
+#define LEVEL_MAX_SX 256
+#define LEVEL_MAX_SY 256
 
 
 #endif

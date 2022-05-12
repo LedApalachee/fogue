@@ -8,8 +8,8 @@
 
 typedef struct Limb
 {
-	int16_t hp, max_hp;
 	uint8_t type;
+	int16_t hp, max_hp;
 	struct Item* armor;
 	struct Item* weapon;
 	uint8_t flags;
@@ -40,6 +40,7 @@ typedef enum LimbType
 typedef struct Creature
 {
 	int id;
+	uint16_t type;
 	char* name;
 	chtype ch;
 
@@ -59,7 +60,6 @@ typedef struct Creature
 
 	uint8_t flags;
 } Creature;
-
 
 #define CREATURE_IS_HIDDEN 1
 

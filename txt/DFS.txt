@@ -1,0 +1,43 @@
+/*
+// Last modified: 13.05.2022
+*/
+
+
+DFS - Data File Specification
+
+
+Chapter 1: the basics
+
+This document specificates the correct form of definition of any data-drivable thing in the game.
+These are creatures, items and levels.
+A definition generally looks like the following:
+
+{
+	F1:V1
+	F2:V2
+	F3:V3
+	...
+	Fn:Vn
+}
+
+where {} are signs of beginning and ending of a definition;
+F1, F2, F3, ..., Fn are [fields], and V1, V2, V3, ..., Vn are their [values]
+
+A [field] is a single character which corresponds to field in struct of its type; each type of defenition has certain set of fields whose position in a definition does not matter
+
+A [value] mostly is a number but it can also be a way more complex structure, such as array of inner values.
+A field can correspond not only to a single field in struct but to several fields. In this case its value looks like a list
+of numbers that are divided by ';'.
+A value that is array of inner values looks like this:
+
+[
+	V1
+	V2
+	V3
+	...
+	Vn
+]
+
+where [] are used to distinguish this array-like value
+
+You can use comments which start with '#'. Such a comment continues untill the line ends

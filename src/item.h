@@ -25,8 +25,8 @@ typedef struct Armor
 
 typedef struct Missile
 {
-	int weapon_type; // which ranged weapon can ballist this missile
-	int damage;
+	uint16_t weapon_type; // which ranged weapon can ballist this missile
+	uint16_t damage;
 	uint16_t effect_type; // is activated on a targetted creature
 } Missile;
 
@@ -68,14 +68,14 @@ typedef struct Item
 	char* name;
 	chtype ch;
 
-	int16_t posX, posY;
+	int16_t pos_x, pos_y;
 
 	float weight; // weight of a unit of the item
-	int number;
+	int number; // number of units of this item
 	
 	Effect effects[ITEM_MAX_EFFECTS];
 
-	uint8_t info_type;
+	uint8_t category;
 	union
 	{
 		Weapon weapon;
@@ -90,18 +90,19 @@ typedef struct Item
 
 #define ITEM_IS_UNPILABLE 1 // you can't store this item as multiple (like swords in Minecraft)
 #define ITEM_IS_HIDDEN 2
+#define ITEM_IS_IN_INVENTORY 4
 
-typedef enum InfoType
+typedef enum ItemCategory
 {
-	INFO_NONE,
-	INFO_WEAPON,
-	INFO_ARMOR,
-	INFO_MISSILE,
-	INFO_COMESTIBLE,
-	INFO_NOTE,
-	INFO_MISC,
-	INFO_MONEY
-} InfoType;
+	ITEM_NONE,
+	ITEM_WEAPON,
+	ITEM_ARMOR,
+	ITEM_MISSILE,
+	ITEM_COMESTIBLE,
+	ITEM_NOTE,
+	ITEM_MISC,
+	ITEM_MONEY
+} ItemCategory;
 
 
 #endif
