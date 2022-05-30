@@ -1,0 +1,11 @@
+{
+	N = emptyness
+	T = 1
+}
+
+
+{
+	N = hamlet
+	T = 2
+	G = gen_hamlet.txt
+}

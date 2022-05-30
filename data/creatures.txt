@@ -1,0 +1,59 @@
+# Last modified: 24 May, 2022
+# the minorest mistakes inevitably lead to errors at the game launch
+
+# a normal healthy human; standard for other creature definitions
+{
+	N = villager
+	D = just a man who only needs a home and a happy family
+	T = 1
+	C = U, 10, 0
+	S = 10, 10, 10, 10, 1
+	I =
+	[
+		3, %0-3  # cob of corn
+		4, %0-2  # bread
+	]
+	B =
+	[
+		H, 4, 0, % 0*50 & 5*50, 9
+		T, 10, 0, 6, 10
+		A, 5, % 0*50 & 2*50, 0, 7
+		A, 5, 0, 0, 7
+		L, 6, 0, 0, 8
+		L, 6, 0, 0, 8
+	]
+}
+
+
+{
+	N = shepherd dog
+	D = farmer's best friend
+	T = 2
+	C = C, 10, 0
+	S = 11, 14, 12, 4, 2
+	B =
+	[
+		H, 2, 0, 0, 12
+		T, 5, 0, 0, 13
+		L, 3, 0, 0, 11
+		L, 3, 0, 0, 11
+		L, 3, 0, 0, 11
+		L, 3, 0, 0, 11
+		t, 1, 0, 0, 14
+	]
+	L =
+	[
+		1, F  # villager
+		3, F  # farmer's child
+	]
+}
+
+
+{
+	N = farmer's child
+	D = future family breadwinner
+	T = 3
+	C = u, 10, 0
+	S = 5, 5, 5, 5, 1
+	// to finish
+}

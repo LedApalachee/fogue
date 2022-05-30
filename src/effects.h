@@ -7,7 +7,7 @@
 typedef struct Effect
 {
 	uint16_t type;
-	uint16_t time_left;
+	int16_t time_left; // if this var equals -1, the effect is considered eternal
 } Effect;
 
 
@@ -24,7 +24,6 @@ typedef enum EffectType
 	// behavioral-psychological
 	EFFECT_CONFUSED,
 	EFFECT_TERRIFIED,
-	EFFECT_ENCOURAGED,
 	EFFECT_MINDLOST,
 
 	// magical

@@ -9,10 +9,9 @@
 typedef struct Limb
 {
 	uint8_t type;
-	int16_t hp, max_hp;
+	int16_t hp, hp_max;
 	struct Item* armor;
 	struct Item* weapon;
-	uint8_t flags;
 } Limb;
 
 #define MAX_LIMBS 16
@@ -27,11 +26,6 @@ typedef enum LimbType
 	LIMB_TAIL
 } LimbType;
 
-// flags in struct Limb
-#define LIMB_IS_VITAL 1 // creature can't live without this limb
-#define LIMB_CAN_WIELD 2
-#define LIMB_CAN_WEAR 4
-
 
 #define CREATURE_MAX_EFFECTS 16
 #define CREATURE_MAX_ITEMS 27
@@ -40,20 +34,25 @@ typedef enum LimbType
 typedef struct Creature
 {
 	int id;
-	uint16_t type;
+	uint8_t type;
 	char* name;
 	chtype ch;
 
 	int16_t pos_x, pos_y;
 
-	int16_t strength;
-	int16_t dexterity;
-	int16_t constitution;
-	int16_t intelligence;
+	int8_t strength;
+	int8_t dexterity;
+	int8_t constitution;
+	int8_t intelligence;
+	int8_t ap; // action points; if it's negative, it's considered how much turns are needed for commiting one action
 
 	Effect effects[CREATURE_MAX_EFFECTS];
 
 	Limb body[MAX_LIMBS];
+	int16_t hp, hp_max; // general hp is a sum of all the limbs' hp-s
+						// when a limb loses some number of hp, the general hp is decreased by the same number
+						// but losses of general hp don't affect on limbs' ones
+						// if general hp is <= 0, the creature dies
 
 	float lifted_weight; // max weight is depends on the strength
 	struct Item* inventory[CREATURE_MAX_ITEMS]; // worn or wielded items aren't stored in inventory
@@ -77,10 +76,17 @@ typedef struct Player
 	int16_t intelligence;
 	int16_t wisdom;
 	int16_t charisma;
+	uint8_t ap;
 
 	int effects[CREATURE_MAX_EFFECTS];
 
+	int16_t satiety; // if satiety <= 0 the general hp decreases by 1 every turn; also, physical stats are decreased by 25%
+	int16_t max_satiety;
+
 	Limb body[MAX_LIMBS];
+	int16_t hp, hp_max;
+
+	float lifted_weight; // max weight is depends on the strength
 	struct Item* inventory[CREATURE_MAX_ITEMS];
 } Player;
 

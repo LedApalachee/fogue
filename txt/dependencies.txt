@@ -1,5 +1,0 @@
-the game uses the following libs:
-
-) curses
-
-) handleline (https://github.com/LedApalachee/handleline)

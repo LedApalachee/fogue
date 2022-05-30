@@ -9,7 +9,7 @@
 typedef struct Chest
 {
 	int condition;
-	struct Item* items[CHEST_MAX_ITEMS];
+	int items[CHEST_MAX_ITEMS];
 	uint8_t flags;
 } Chest;
 
@@ -19,7 +19,7 @@ typedef struct Chest
 
 typedef struct Trap
 {
-	int type;
+	uint8_t type;
 	uint8_t flags;
 } Trap;
 
@@ -29,11 +29,11 @@ typedef enum TrapType
 {
 	TRAP_NONE,
 	TRAP_LANDMINE, // hurts limbs a lot
-	TRAP_BEARTRAP, // hurts limbs and keeps creatures in this same tile
-	TRAP_PIT, // keeps creatures in the same tile; after crawling out they are faint
+	TRAP_BEARTRAP, // hurts limbs a little and keeps creatures in this tile for some time
+	TRAP_PIT, // keeps creatures in this tile for some time; after crawling out they are faint
 	TRAP_SPIKE, // makes creatures bleed
 	TRAP_FLASH, // makes creatures blind
-	TRAP_FIRE, // puts creatures in fire
+	TRAP_FIRE, // sets creatures in fire
 	TRAP_LMAO // does some shitty things
 } TrapType;
 
@@ -48,6 +48,7 @@ typedef struct Door
 
 #define DOOR_IS_HIDDEN 1
 #define DOOR_IS_LOCKED 2
+#define DOOR_IS_OPEN 4
 
 
 
@@ -56,7 +57,7 @@ typedef struct Feature
 {
 	uint16_t id;
 	char ch;
-	int pos_x, pos_y;
+	int16_t pos_x, pos_y;
 	union
 	{
 		Chest chest;

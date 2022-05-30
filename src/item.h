@@ -10,13 +10,14 @@ typedef struct Weapon
 {
 	int16_t melee_damage;
 	int16_t ranged_damage;
+	Effect effect; // when struck someone or something
 	int condition;
 } Weapon;
 
 
 typedef struct Armor
 {
-	int16_t armor_class;
+	int16_t defence;
 	uint8_t limb_type; // e.g. you can wear a helmet only on your head
 	uint16_t effect_type; // is active during the whole time of wearing
 	int condition;
@@ -25,9 +26,9 @@ typedef struct Armor
 
 typedef struct Missile
 {
-	uint16_t weapon_type; // which ranged weapon can ballist this missile
+	uint16_t weapon_type; // which ranged weapon can shoot with this missile
 	uint16_t damage;
-	uint16_t effect_type; // is activated on a targetted creature
+	Effect effect; // is activated on a targetted creature
 } Missile;
 
 
@@ -35,7 +36,9 @@ typedef struct Comestible
 {
 	int nutrition;
 	int quench;
-	uint16_t effect_type; // is activated when comested
+	int shelf_life; // how many turns are left before it becomes rotten
+	Effect comested_effect; // is activated when comested
+	Effect rotten_effect; // is activated when comested rotten
 } Comestible;
 
 
@@ -88,9 +91,12 @@ typedef struct Item
 	uint8_t flags;
 } Item;
 
-#define ITEM_IS_UNPILABLE 1 // you can't store this item as multiple (like swords in Minecraft)
+#define ITEM_IS_UNSTACKABLE 1 // like swords in Minecraft
 #define ITEM_IS_HIDDEN 2
 #define ITEM_IS_IN_INVENTORY 4
+
+// flags for weapons
+#define WEAPON_IS_TWO_HANDED 8
 
 typedef enum ItemCategory
 {

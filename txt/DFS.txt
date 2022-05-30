@@ -1,35 +1,55 @@
 /*
-// Last modified: 13.05.2022
+// Last modified: 29 May, 2022
+// IMPORTANT: when there is a change in the specification, make the appropriate changes to the data processor
 */
 
 
-DFS - Data File Specification
+									   Data File Specification
+										Author: Fuat Chumarin
 
 
-Chapter 1: the basics
+
+
+
+
+
+
+											Table Of Contents:
+() Chapter 1: The Basics
+() Chapter 2: Creature Data File
+() Chapter 3: Item Data File
+() Chapter 4: Level Data File
+() Attachment
+
+
+
+
+
+
+
+
+										Chapter 1: The Basics
 
 This document specificates the correct form of definition of any data-drivable thing in the game.
 These are creatures, items and levels.
 A definition generally looks like the following:
-
 {
-	F1:V1
-	F2:V2
-	F3:V3
+	F1=V1
+	F2=V2
+	F3=V3
 	...
-	Fn:Vn
+	Fn=Vn
 }
-
 where {} are signs of beginning and ending of a definition;
 F1, F2, F3, ..., Fn are [fields], and V1, V2, V3, ..., Vn are their [values]
 
-A [field] is a single character which corresponds to field in struct of its type; each type of defenition has certain set of fields whose position in a definition does not matter
+A [field] is a single character which corresponds to field in struct of its type; each type of definition has certain set of fields arrangement of which in a definition does not matter
 
-A [value] mostly is a number but it can also be a way more complex structure, such as array of inner values.
+A [value] mostly is a number but it can also be a more complex structure, such as array of inner values.
+A value can also be a character or a string.
 A field can correspond not only to a single field in struct but to several fields. In this case its value looks like a list
-of numbers that are divided by ';'.
-A value that is array of inner values looks like this:
-
+of numbers (and not only them) those are divided by ','.
+A value that is an array of inner values looks like this:
 [
 	V1
 	V2
@@ -37,7 +57,152 @@ A value that is array of inner values looks like this:
 	...
 	Vn
 ]
+where [] are used to distinguish this array-like values.
+Each new element in such arrays must begin from a new line
 
-where [] are used to distinguish this array-like value
+A field's value can be set randomly. In this case you have to put "%" before the value.
+The number itself can be choosen in two ways:
+F1 = %N1-N2
+where F1 accepts a random number in the range from N1 to N2 inclusive
+or
+F1 = % V1*P1 & V2*P2 & V3*P3
+where F1 accepts a random value choosing from V1, V2 and V3 based on their probablities which are P1, P2 and P3.
+P1, P2 and P3 are percentage. There can be only up to 10 such values in one random number definition
 
 You can use comments which start with '#'. Such a comment continues untill the line ends
+
+
+
+
+
+
+
+
+										Chapter 2: Creature Data File
+
+There is a file named "creatures.txt" where all creatures are and must be defined
+
+Possible fields in a creature's definition are the following:
+
+() T - type of the creature; a number; currently, there can't be more than 100 creatures
+
+() N - name of the creature; a string
+
+() D - description of the creature; a string
+
+() C - character that represents the creature; a list of one char and two numbers which are foreground and background colors (see "Attachment")
+
+() L - the creature's behavior; how does creature feel about other creatures; an array which's elements have the following formant:
+[creature type], [relation type]
+Relation types are these: 'H' = hostile; 'F' = friendly
+You don't have to set relations to all creature types; every unset relation to some creature is considered "neutral"
+
+() S - the creature's stats; five numbers which are strength, dexterity, constitution, intelligence and action points
+Action points (AP) represent number of actions creature can do in 1 turn
+If AP is negative number, it's considered how much turns are needed for commiting one action
+
+() I - creature's initial inventory; an array which's elements are values those have two numbers: type of item and number of this item
+
+() B - the creature's body; an array of limbs which are values of the following format:
+[limb type], [limb's max hp], [wielded item's type], [worn item's type], [remains item type]
+Limb types: 'H' = head; 'T' = torso; 'L' = leg; 'A' = arm; 't' = tail
+If wielded weapon is two-handed, place it in one of the arms - the second arm will grab it itself
+
+
+
+
+
+
+
+
+										Chapter 3: Item Data File
+
+All items are and must be defined in a file named "items.txt"
+
+Possible fields in an item's definition are the following:
+
+() T - type of the item; a number; currently, there can't be more than 400 items
+
+() N - name of the item; a string
+
+() D - description of the item; a string
+
+() C - character that represents the item; a list of one char and two numbers which are foreground and background colors
+
+() W - weight of the item (kg); a floating point number
+
+() c - the item's category;
+the categories are these: 'W' = weapon; 'A' = armor; 'M' = missile; 'C' = comestible; 'N' = note; 'm' = misc; '$' = money (e.g. various coins)
+
+() F - flags; several flags (they're either true (1) or false (0)): [the item is unstackable]
+
+() I - information that is specific for every item category; the format differs from one category to another.
+Category information formats:
+for a weapon: [melee damage], [ranged damage], [effect type when struck someone], [effect duration], [initial condition], [is two-handed] (bool; 1 or 0)
+for an armor: [armor class], [for which limb this armor is (limb type)], [effect type when worn], [initial condition]
+for a missile: [for which weapon this missile is (weapon type)], [damage], [effect type when shot something], [effect duration (in turns)]
+for a comestible: [nutrition], [quench], [initial shelf life (in turns)], [effect type when eaten], [effect duration], [effect type when it rots], [effect duration]
+for a note: [note type], [text on the note], [number of objects to reveal]
+note types: 'T' = just text; 'I' = reveal items; 'C' = reveal creatures; 'F' = reveal feature
+See "Attachment" for effect types
+
+
+
+
+
+
+
+
+										Chapter 4: Level Data File
+
+All levels are and must be defined in a file named "levels.txt"
+
+Possible fields in a level's definition are the following:
+
+() T - type of the level; a number; currently, there can't be more than 50 levels
+
+() N - name of the level; a string
+
+() G - name of map generation script file; a string
+See "mapgen_scripts.txt" to find out more about them
+
+
+
+
+
+
+
+
+										Attachment
+
+Color numbers:
+() Black = 0
+() Red = 1
+() Green = 2
+() Yellow = 3
+() Blue = 4
+() Magenta = 5
+() Cyan = 6
+() White = 7
+() Light Black = 8
+() Light Red = 9
+() Light Green = 10
+() Light Yellow = 11
+() Light Blue = 12
+() Light Magenta = 13
+() Light Cyan = 14
+() Light White = 15
+If you want to set only foreground, set background 0
+
+
+Effect types:
+() No Effect = 0
+() Burning = 1 // -2 to general hp every turn; the victim can ignite nearby objects
+() Bleeding = 2 // -1 to general hp every turn
+() Faint = 3  // physical stats are much decreased
+() Blind = 4
+() Confused = 5  // troubles with movement and actions
+() Terrified = 6  // fears everyone
+() Mindlost = 7
+() Invisible = 8
+() Levitating = 9
