@@ -25,8 +25,8 @@ WINDOW* statswin;
 WINDOW* logwin;
 
 int ui_start();
-void ui_redraw_map(Level* level);
 void ui_finish();
+void ui_redraw_map(Level* level);
 void ui_add_log(char* message);
 int ui_input();
 

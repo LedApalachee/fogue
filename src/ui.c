@@ -57,7 +57,7 @@ int draw_tile(int x, int y)
 	}
 	else if (cur_tile->item_id)
 	{ 
-		Item* cur_item = find_item(cur_level, cur_tile->item_id);
+		Item* cur_item = find_item(cur_level, cur_tile->item_ids[cur_tile->items_number-1]);
 		mvwaddch(mapwin, y - mapwin_y, x - mapwin_x, cur_item->ch);
 	}
 	else
