@@ -107,9 +107,14 @@ int level_del_item(Level* level, int i_id)
 		{
 			Tile* cur_tile = GET_TILE(level, level->items[i]->pos_x, level->items[i]->pos_y);
 			for (int j = 0; j < cur_tile->items_number; ++j)
-			{
 				if (cur_tile->item_ids[j] == i_id)
-			}
+				{
+					cur_tile->item_ids[j] = 0;
+					break;
+				}
+			int n = cur_tile->items_number-1;
+			rearrange_int_array(cur_tile->item_ids, &n);
+			cur_tile->items_number = n + 1;
 			level->items[i] = 0;
 			rearrange_ptr_array(level->items, &level->i_endofarr_index);
 			return ALL_GOOD;
@@ -153,7 +158,31 @@ void rearrange_ptr_array(void** arr, int* end_i)
 				{
 					arr[i] = arr[end_i_m];
 					arr[end_i_m] = 0;
-					end_i_m = i;
+					end_i_m = i-1;
+				}
+			}
+	*end_i = end_i_m;
+}
+
+
+void rearrange_int_array(int* arr, int* end_i)
+{
+	int end_i_m = *end_i;
+	for (int i = 0; i <= end_i_m; ++i)
+		if (arr[i] == 0)
+			for (int j = end_i_m; j >= i; --j)
+			{
+				if (arr[j] != 0)
+				{
+					arr[i] = arr[j];
+					arr[j] = 0;
+					break;
+				}
+				if (j == i)
+				{
+					arr[i] = arr[end_i_m];
+					arr[end_i_m] = 0;
+					end_i_m = i-1;
 				}
 			}
 	*end_i = end_i_m;
@@ -164,7 +193,7 @@ void rearrange_ptr_array(void** arr, int* end_i)
 
 Level* generate_level(uint8_t type)
 {
-
+	// this function will parse a mapgen script that is corresponding to the given type of level
 }
 
 

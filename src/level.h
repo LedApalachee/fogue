@@ -13,7 +13,7 @@ typedef struct Tile
 	char feature;
 	uint16_t creature_id; // if 0, there is no creature
 	uint16_t item_ids[MAX_ITEMS_ON_TILE];
-	uint8_t items_number; // how much items are in this tile
+	int8_t items_number; // how much items are in this tile
 	uint16_t feature_id; // if 0, there is no special feature
 	uint8_t flags;
 } Tile;
@@ -80,6 +80,7 @@ int level_del_feature(Level* level, int f_id);
 
 
 void rearrange_ptr_array(void** arr, int* end_i) // compresses a pointer array by removing nulls from it
+void rearrange_int_array(int* arr, int* end_i);
 
 
 Level* generate_level(uint8_t type);
