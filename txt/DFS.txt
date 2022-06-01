@@ -101,6 +101,8 @@ You don't have to set relations to all creature types; every unset relation to s
 Action points (AP) represent number of actions creature can do in 1 turn
 If AP is negative number, it's considered how much turns are needed for commiting one action
 
+() R - sight distance; up to how many tiles can this creature see in a linear direction; for a regular human make this number equal 10
+
 () I - creature's initial inventory; an array which's elements are values those have two numbers: type of item and number of this item
 
 () B - the creature's body; an array of limbs which are values of the following format:

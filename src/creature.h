@@ -57,6 +57,8 @@ typedef struct Creature
 	float lifted_weight; // max weight is depends on the strength
 	struct Item* inventory[CREATURE_MAX_ITEMS]; // worn or wielded items aren't stored in inventory
 
+	uint8_t sight_distance;
+
 	uint8_t flags;
 } Creature;
 
@@ -88,6 +90,8 @@ typedef struct Player
 
 	float lifted_weight; // max weight is depends on the strength
 	struct Item* inventory[CREATURE_MAX_ITEMS];
+
+	uint8_t sight_distance;
 } Player;
 
 

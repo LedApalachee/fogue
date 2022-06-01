@@ -48,16 +48,16 @@ Tile* cur_tile;
 int i;
 int draw_tile(int x, int y)
 {
-	if (x < 0 || y < 0 || x >= cur_level->sizeX || y >= cur_level->sizeY || i > player_sight_distance) return BREAK_HANDLELINE;
+	if (x < 0 || y < 0 || x >= cur_level->size_x || y >= cur_level->size_y || i > cur_level->player->sight_distance) return BREAK_HANDLELINE;
 	cur_tile = GET_TILE(cur_level, x, y);
 	if (cur_tile->creature_id)
 	{
-		Creature* cur_creature = find_creature(cur_level, cur_tile->creature_id);
+		Creature* cur_creature = cur_level->creatures[cur_tile->creature_id];
 		mvwaddch(mapwin, y - mapwin_y, x - mapwin_x, cur_creature->ch);
 	}
-	else if (cur_tile->item_id)
+	else if (cur_tile->items_number > 0)
 	{ 
-		Item* cur_item = find_item(cur_level, cur_tile->item_ids[cur_tile->items_number-1]);
+		Item* cur_item = cur_level->items[cur_tile->item_ids[cur_tile->items_number-1]];
 		mvwaddch(mapwin, y - mapwin_y, x - mapwin_x, cur_item->ch);
 	}
 	else
@@ -76,12 +76,21 @@ void ui_redraw_map(Level* level)
 	cur_level = level;
 	mapwin_x = level->player->pos_x - mapwin_sx/2;
 	mapwin_y = level->player->pos_y - mapwin_sy/2;
-	for (int x = 0; x < mapwin_sx; ++x)
-		for (int y = 0; y < mapwin_sy; ++y)
-		{
-			i = 0;
-			handleline(level->player->pos_x, level->player->pos_y, mapwin_x + x, mapwin_y + y, &draw_tile);
-		}
+	for (int x = 0; x < level->size_x; ++x)
+	{
+		i = 0;
+		handleline(mapwin_x, mapwin_y, x, 0, &draw_tile);
+		i = 0;
+		handleline(mapwin_x, mapwin_y, x, level->size_y-1, &draw_tile);
+	}
+	for (int y = 0; y < level->size_y; ++y)
+	{
+		i = 0;
+		handleline(mapwin_x, mapwin_y, 0, y, &draw_tile);
+		i = 0;
+		handleline(mapwin_x, mapwin_y, level->size_x-1, y, &draw_tile);
+	}
+	wrefresh(mapwin);
 }
 
 
