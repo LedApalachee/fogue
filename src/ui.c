@@ -43,6 +43,13 @@ int ui_start()
 }
 
 
+void ui_finish()
+{
+	wclear(stdscr);
+	endwin();
+}
+
+
 Level* cur_level;
 Tile* cur_tile;
 int i;
@@ -94,8 +101,10 @@ void ui_redraw_map(Level* level)
 }
 
 
-void ui_finish()
+void ui_add_log(char* message)
 {
-	wclear(stdscr);
-	endwin();
+
 }
+
+
+int ui_input();

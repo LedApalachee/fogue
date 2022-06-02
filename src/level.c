@@ -3,6 +3,7 @@
 #include "ascii.h"
 #include "errors.h"
 #include "settings.h"
+#include "util.h"
 
 
 int level_add_creature(Level* level, Creature* creature)
@@ -173,7 +174,7 @@ int level_move_player(Level* level, int x, int y)
 {
 	Tile* dest_tile = GET_TILE(level, x, y);
 	if (dest_tile->creature_id != -1 || !(dest_tile->flags & TILE_IS_PASSABLE)) return TILE_IS_OCCUPIED;
-	RESET(GET_TILE(level, level->player->pos_x, level->player->pos_y)->flags, TILE_CONTAINS_PLAYER);
+	RESETF(GET_TILE(level, level->player->pos_x, level->player->pos_y)->flags, TILE_CONTAINS_PLAYER);
 	dest_tile->flags |= TILE_CONTAINS_PLAYER;
 	level->player->pos_x = x;
 	level->player->pos_y = y;

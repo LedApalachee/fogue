@@ -28,7 +28,7 @@ int ui_start();
 void ui_finish();
 void ui_redraw_map(Level* level);
 void ui_add_log(char* message);
-int ui_input();
+int ui_input(); // doesn't just read the pressed key but performs the actions
 
 
 #endif

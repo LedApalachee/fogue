@@ -2,9 +2,9 @@
 #define util_h
 
 
-#define SET(flags, flag) (flags |= flag)
-#define RESET(flags, flag) (flags & (~flag))
-#define ISSET(flags, flag) (flags & flag)
+#define SETF(flags, flag) (flags |= flag)
+#define RESETF(flags, flag) (flags &= (~flag))
+#define ISFSSET(flags, flag) (flags & flag)
 
 
 #endif
