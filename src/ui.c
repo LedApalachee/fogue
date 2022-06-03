@@ -5,6 +5,7 @@
 #include "creature.h"
 #include "item.h"
 #include "errors.h"
+#include "ascii.h"
 
 
 void init_pairs()
@@ -19,11 +20,9 @@ void init_pairs()
 
 int ui_start()
 {
-	initscr();
+	// "initscr" has already been called in "main"
 	start_color();
 	refresh();
-	getmaxyx(stdscr, term_sy, term_sx);
-	if (term_sx < TERM_MIN_SX || term_sy < TERM_MIN_SY) return TERMINAL_IS_TOO_SMALL;
 	mapwin_sx = MAPWIN_SX_RATIO * term_sx;
 	mapwin_sy = MAPWIN_SY_RATIO * term_sy;
 	logwin_sx = term_sx;
@@ -55,9 +54,14 @@ Tile* cur_tile;
 int i;
 int draw_tile(int x, int y)
 {
+	if (i == 0)
+	{
+		++i
+		return ALL_GOOD;
+	}
 	if (x < 0 || y < 0 || x >= cur_level->size_x || y >= cur_level->size_y || i > cur_level->player->sight_distance) return BREAK_HANDLELINE;
 	cur_tile = GET_TILE(cur_level, x, y);
-	if (cur_tile->creature_id)
+	if (cur_tile->creature_id != -1)
 	{
 		Creature* cur_creature = cur_level->creatures[cur_tile->creature_id];
 		mvwaddch(mapwin, y - mapwin_y, x - mapwin_x, cur_creature->ch);
@@ -83,20 +87,21 @@ void ui_redraw_map(Level* level)
 	cur_level = level;
 	mapwin_x = level->player->pos_x - mapwin_sx/2;
 	mapwin_y = level->player->pos_y - mapwin_sy/2;
-	for (int x = 0; x < level->size_x; ++x)
+	for (int x = mapwin_x; x < mapwin_x + mapwin_sx; ++x)
 	{
 		i = 0;
-		handleline(mapwin_x, mapwin_y, x, 0, &draw_tile);
+		handleline(level->player->pos_x, level->player->pos_y, x, mapwin_y, &draw_tile);
 		i = 0;
-		handleline(mapwin_x, mapwin_y, x, level->size_y-1, &draw_tile);
+		handleline(level->player->pos_x, level->player->pos_y, x, mapwin_y + mapwin_sy-1, &draw_tile);
 	}
-	for (int y = 0; y < level->size_y; ++y)
+	for (int y = mapwin_y; y < mapwin_y + mapwin_sy; ++y)
 	{
 		i = 0;
-		handleline(mapwin_x, mapwin_y, 0, y, &draw_tile);
+		handleline(level->player->pos_x, level->player->pos_y, mapwin_x, y, &draw_tile);
 		i = 0;
-		handleline(mapwin_x, mapwin_y, level->size_x-1, y, &draw_tile);
+		handleline(level->player->pos_x, level->player->pos_y, mapwin_x + mapwin_sx-1, y, &draw_tile);
 	}
+	mvwaddch(mapwin, level->player->pos_x - mapwin_x, level->player->pos_y - mapwin_y, CHAR_PLAYER);
 	wrefresh(mapwin);
 }
 
@@ -107,4 +112,7 @@ void ui_add_log(char* message)
 }
 
 
-int ui_input();
+int ui_input()
+{
+	return ALL_GOOD;
+}

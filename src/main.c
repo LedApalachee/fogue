@@ -12,13 +12,16 @@
 
 int main(int argc, char** argv)
 {
-	if (ui_start() == TERMINAL_IS_TOO_SMALL)
+	initscr();
+	getmaxyx(stdscr, term_sy, term_sx);
+	if (term_sx < TERM_MIN_SX || term_sy < TERM_MIN_SY)
 	{
 		printw("The terminal window is too small.\nThe minimal resolution is %dx%d.\n", TERM_MIN_SX, TERM_MIN_SY);
 		getch();
 		ui_finish();
 		return 0;
 	}
+	ui_start();
 
 	getch();
 	ui_finish();
