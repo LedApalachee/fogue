@@ -10,8 +10,8 @@ typedef struct Limb
 {
 	uint8_t type;
 	int16_t hp, hp_max;
-	struct Item* armor;
-	struct Item* weapon;
+	int16_t armor_id;
+	int16_t weapon_id;
 } Limb;
 
 #define MAX_LIMBS 16
@@ -55,7 +55,8 @@ typedef struct Creature
 						// if general hp is <= 0, the creature dies
 
 	float lifted_weight; // max weight is depends on the strength
-	struct Item* inventory[CREATURE_MAX_ITEMS]; // worn or wielded items aren't stored in inventory
+	int16_t inventory[CREATURE_MAX_ITEMS]; // array of item id-s
+										   // worn or wielded items aren't stored in inventory
 
 	uint8_t sight_distance;
 

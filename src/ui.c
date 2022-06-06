@@ -6,37 +6,42 @@
 #include "item.h"
 #include "errors.h"
 #include "ascii.h"
+#include "handle_key.h"
 
 
 void init_pairs()
 {
-	for (int fg = 0; fg <= COLOR_WHITE; ++fg)
-		for (int bg = 0; bg <= COLOR_WHITE; ++bg)
+	for (int fg = 0; fg <= 17; ++fg)
+		for (int bg = 0; bg <= 17; ++bg)
 			init_pair(fg*16 + bg, fg, bg);
 }
-
-#define UI_GET_PAIR(fg, bg) COLOR_PAIR(fg*16 + bg)
 
 
 int ui_start()
 {
 	// "initscr" has already been called in "main"
+	quit = 0;
 	start_color();
+	init_pairs();
+	cbreak();
+	noecho();
+	keypad(stdscr, TRUE);
 	refresh();
 	mapwin_sx = MAPWIN_SX_RATIO * term_sx;
 	mapwin_sy = MAPWIN_SY_RATIO * term_sy;
-	logwin_sx = term_sx;
-	logwin_sy = term_sy - mapwin_sy;
+	infowin_sx = term_sx;
+	infowin_sy = term_sy - mapwin_sy;
 	statswin_sx = term_sx - mapwin_sx;
 	statswin_sy = mapwin_sy;
 	mapwin = newwin(mapwin_sy, mapwin_sx, 0, 0);
-	logwin = newwin(logwin_sy, logwin_sx, mapwin_sy, 0);
+	infowin = newwin(infowin_sy, infowin_sx, mapwin_sy, 0);
 	statswin = newwin(statswin_sy, statswin_sx, 0, mapwin_sx);
-	wborder(mapwin, 0, 0, 0, 0, 0, 0, 0, 0);
-	wborder(logwin, 0, 0, 0, 0, 0, 0, 0, 0);
+	for (int i = 0; i < MAX_MESSAGES; ++i)
+		messages[i] = 0;
+	wborder(infowin, 0, 0, 0, 0, 0, 0, 0, 0);
 	wborder(statswin, 0, 0, 0, 0, 0, 0, 0, 0);
 	wrefresh(mapwin);
-	wrefresh(logwin);
+	wrefresh(infowin);
 	wrefresh(statswin);
 	return ALL_GOOD;
 }
@@ -56,7 +61,7 @@ int draw_tile(int x, int y)
 {
 	if (i == 0)
 	{
-		++i
+		++i;
 		return ALL_GOOD;
 	}
 	if (x < 0 || y < 0 || x >= cur_level->size_x || y >= cur_level->size_y || i > cur_level->player->sight_distance) return BREAK_HANDLELINE;
@@ -101,18 +106,127 @@ void ui_redraw_map(Level* level)
 		i = 0;
 		handleline(level->player->pos_x, level->player->pos_y, mapwin_x + mapwin_sx-1, y, &draw_tile);
 	}
-	mvwaddch(mapwin, level->player->pos_x - mapwin_x, level->player->pos_y - mapwin_y, CHAR_PLAYER);
+	mvwaddch(mapwin, level->player->pos_y - mapwin_y, level->player->pos_x - mapwin_x, CHAR_PLAYER);
 	wrefresh(mapwin);
 }
 
 
-void ui_add_log(char* message)
+void ui_message(char* str)
 {
 
 }
 
 
-int ui_input()
+void ui_popup(uint8_t type, void* content)
 {
-	return ALL_GOOD;
+
+}
+
+
+void ui_input(Level* level)
+{
+	int ch = getch();
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_MOVE_UP[i])
+		{
+			handle_KEY_MOVE_UP(level);
+			return;
+		}
+
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_MOVE_DOWN[i])
+		{
+			handle_KEY_MOVE_DOWN(level);
+			return;
+		}
+
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_MOVE_LEFT[i])
+		{
+			handle_KEY_MOVE_LEFT(level);
+			return;
+		}
+
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_MOVE_RIGHT[i])
+		{
+			handle_KEY_MOVE_RIGHT(level);
+			return;
+		}
+
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_MOVE_UP_LEFT[i])
+		{
+			handle_KEY_MOVE_UP_LEFT(level);
+			return;
+		}
+
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_MOVE_UP_RIGHT[i])
+		{
+			handle_KEY_MOVE_UP_RIGHT(level);
+			return;
+		}
+
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_MOVE_DOWN_LEFT[i])
+		{
+			handle_KEY_MOVE_DOWN_LEFT(level);
+			return;
+		}
+
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_MOVE_DOWN_RIGHT[i])
+		{
+			handle_KEY_MOVE_DOWN_RIGHT(level);
+			return;
+		}
+
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_MOVE_UP_RIGHT[i])
+		{
+			handle_KEY_MOVE_UP_RIGHT(level);
+			return;
+		}
+
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_STAY[i])
+			return;
+
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_EXIT_GAME[i])
+		{
+			quit = 1;
+			return;
+		}
+
+	for (int i = 0; i < MAX_KEYS_IN_ONE; ++i)
+		if (ch == KEY_WINRESIZE[i])
+		{
+			ui_winresize();
+			mvwprintw(infowin, 2, 1, "window was resized: %dx%d", term_sx, term_sy);
+			wrefresh(infowin);
+			return;
+		}
+}
+
+
+void ui_winresize()
+{
+	getmaxyx(stdscr, term_sy, term_sx);
+	mapwin_sx = MAPWIN_SX_RATIO * term_sx;
+	mapwin_sy = MAPWIN_SY_RATIO * term_sy;
+	infowin_sx = term_sx;
+	infowin_sy = term_sy - mapwin_sy;
+	statswin_sx = term_sx - mapwin_sx;
+	statswin_sy = mapwin_sy;
+	mapwin = newwin(mapwin_sy, mapwin_sx, 0, 0);
+	infowin = newwin(infowin_sy, infowin_sx, mapwin_sy, 0);
+	statswin = newwin(statswin_sy, statswin_sx, 0, mapwin_sx);
+	wborder(infowin, 0, 0, 0, 0, 0, 0, 0, 0);
+	wborder(statswin, 0, 0, 0, 0, 0, 0, 0, 0);
+	wrefresh(mapwin);
+	wrefresh(infowin);
+	wrefresh(statswin);
+	refresh();
 }

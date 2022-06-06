@@ -1,0 +1,3 @@
+() make data processor for creatures, items and levels
+() make level generation script processor
+() make entities' behavior availible for being scripted

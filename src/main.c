@@ -5,9 +5,9 @@
 #include "errors.h"
 #include "util.h"
 #include "ascii.h"
+#include "colors.h"
 
-
-// current task: make showcase with editable map and some objects on it
+void init_settings();
 
 
 int main(int argc, char** argv)
@@ -21,9 +21,50 @@ int main(int argc, char** argv)
 		ui_finish();
 		return 0;
 	}
+	init_settings();
 	ui_start();
 
-	getch();
+	while (!quit)
+	{
+		// the loop:
+		// 1) update screen
+		// 2) handle input from user
+		// 3) process entities' logic
+	}
+
 	ui_finish();
 	return 0;
+}
+
+
+
+
+void init_settings()
+{
+	KEY_MOVE_UP[0] = '8';
+	KEY_MOVE_UP[1] = KEY_UP;
+
+	KEY_MOVE_DOWN[0] = '2';
+	KEY_MOVE_DOWN[1] = KEY_DOWN;
+
+	KEY_MOVE_LEFT[0] = '4';
+	KEY_MOVE_LEFT[1] = KEY_LEFT;
+
+	KEY_MOVE_RIGHT[0] = '6';
+	KEY_MOVE_RIGHT[1] = KEY_RIGHT;
+
+	KEY_MOVE_UP_LEFT[0] = '7';
+
+	KEY_MOVE_DOWN_LEFT[0] = '1';
+
+	KEY_MOVE_DOWN_RIGHT[0] = '3';
+
+	KEY_MOVE_UP_RIGHT[0] = '9';
+
+	KEY_STAY[0] = '5';
+	KEY_STAY[1] = ' ';
+
+	KEY_EXIT_GAME[0] = 'Q';
+
+	KEY_WINRESIZE[0] = '`';
 }

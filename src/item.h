@@ -91,6 +91,7 @@ typedef struct Item
 	uint8_t flags;
 } Item;
 
+// common flags
 #define ITEM_IS_UNSTACKABLE 1 // like swords in Minecraft
 #define ITEM_IS_HIDDEN 2
 #define ITEM_IS_IN_INVENTORY 4

@@ -1,5 +1,5 @@
 /*
-// Last modified: 29 May, 2022
+// Last modified: 6 June, 2022
 // IMPORTANT: when there is a change in the specification, make the appropriate changes to the data processor
 */
 
@@ -31,25 +31,23 @@
 										Chapter 1: The Basics
 
 This document specificates the correct form of definition of any data-drivable thing in the game.
-These are creatures, items and levels.
-A definition generally looks like the following:
+These, currently, are creatures, items and levels.
+A definition generally looks like this:
 {
-	F1=V1
-	F2=V2
-	F3=V3
+	F1 = V1
+	F2 = V2
+	F3 = V3
 	...
-	Fn=Vn
+	Fn = Vn
 }
-where {} are signs of beginning and ending of a definition;
+where { and } emphasize beginning and ending of a definition;
 F1, F2, F3, ..., Fn are [fields], and V1, V2, V3, ..., Vn are their [values]
 
-A [field] is a single character which corresponds to field in struct of its type; each type of definition has certain set of fields arrangement of which in a definition does not matter
+A [field] is a single character which corresponds to certain field in the struct of its type; each type of definition has certain set of fields, arrangement of which in a definition does not matter
 
-A [value] mostly is a number but it can also be a more complex structure, such as array of inner values.
-A value can also be a character or a string.
-A field can correspond not only to a single field in struct but to several fields. In this case its value looks like a list
-of numbers (and not only them) those are divided by ','.
-A value that is an array of inner values looks like this:
+A [value] mostly is a number but it can also be a string, a character, or some complex structure, such as array of other values.
+A single field in a definition can correspond not only to a single field in struct but to several ones. In this case the value looks like a list of numbers (and not only them, as it was said earlier) those are divided by ','.
+A value that is an array of other values looks like this:
 [
 	V1
 	V2
@@ -57,15 +55,15 @@ A value that is an array of inner values looks like this:
 	...
 	Vn
 ]
-where [] are used to distinguish this array-like values.
-Each new element in such arrays must begin from a new line
+where [] are used to distinguish this array-like value.
+Each new element in such arrays must begin on a new line.
 
 A field's value can be set randomly. In this case you have to put "%" before the value.
 The number itself can be choosen in two ways:
 F1 = %N1-N2
 where F1 accepts a random number in the range from N1 to N2 inclusive
 or
-F1 = % V1*P1 & V2*P2 & V3*P3
+F1 = % V1:P1 & V2:P2 & V3:P3
 where F1 accepts a random value choosing from V1, V2 and V3 based on their probablities which are P1, P2 and P3.
 P1, P2 and P3 are percentage. There can be only up to 10 such values in one random number definition
 
@@ -165,8 +163,7 @@ Possible fields in a level's definition are the following:
 
 () N - name of the level; a string
 
-() G - name of map generation script file; a string
-See "mapgen_scripts.txt" to find out more about them
+() G - name of level generation script file; a string
 
 
 

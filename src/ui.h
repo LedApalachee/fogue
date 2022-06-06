@@ -6,29 +6,37 @@
 
 
 #define MAPWIN_SX_RATIO 0.75
-#define MAPWIN_SY_RATIO 0.85
+#define MAPWIN_SY_RATIO 0.8
 
 #define TERM_MIN_SX 80
 #define TERM_MIN_SY 25
 
-#define MAPWIN_PLAYER_X mapwin_sx/2
-#define MAPWIN_PLAYER_y mapwin_sy/2
+#define UI_COLOR_PAIR(fg, bg) COLOR_PAIR(fg*16 + bg)
+
+#define MAX_MESSAGES 100
 
 
 int term_sx, term_sy;
 int mapwin_sx, mapwin_sy;
 int mapwin_x, mapwin_y; // coordinates of begining of the map window (they also can be negative)
-int logwin_sx, logwin_sy;
+int infowin_sx, infowin_sy;
 int statswin_sx, statswin_sy;
 WINDOW* mapwin;
 WINDOW* statswin;
-WINDOW* logwin;
+WINDOW* infowin;
+
+char* messages[MAX_MESSAGES]; // stack of messages that appear in logwin
+
+int quit; // if it's TRUE, the game will end
+
 
 int ui_start();
 void ui_finish();
 void ui_redraw_map(Level* level);
-void ui_add_log(char* message);
-int ui_input(); // doesn't just read the pressed key but also performs the actions
+void ui_message(char* str);
+void ui_popup(uint8_t type, void* content); // depending on popup type, a content format may differ from others
+void ui_input(Level* level); // doesn't just read the pressed key but also performs related actions
+void ui_winresize();
 
 
 #endif
