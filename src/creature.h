@@ -16,15 +16,12 @@ typedef struct Limb
 
 #define MAX_LIMBS 16
 
-typedef enum LimbType
-{
-	LIMB_NONE,
-	LIMB_HEAD,
-	LIMB_TORSO,
-	LIMB_LEG,
-	LIMB_ARM,
-	LIMB_TAIL
-} LimbType;
+#define LIMB_NONE 0
+#define LIMB_HEAD 1
+#define LIMB_TORSO 2
+#define LIMB_LEG 3
+#define LIMB_ARM 4
+#define LIMB_TAIL 5
 
 
 #define CREATURE_MAX_EFFECTS 16
@@ -44,6 +41,8 @@ typedef struct Creature
 	int8_t dexterity;
 	int8_t constitution;
 	int8_t intelligence;
+	int16_t wisdom;
+	int16_t charisma;
 	int8_t ap; // action points; if it's negative, it's considered how much turns are needed for commiting one action
 
 	Effect effects[CREATURE_MAX_EFFECTS];

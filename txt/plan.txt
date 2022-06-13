@@ -1,3 +1,21 @@
-() make data processor for creatures, items and levels
-() make level generation script processor
-() make entities' behavior availible for being scripted
+CURRENT:
+() data processor for creatures, items and levels
+	() change DFS
+	() develop the data processors
+
+
+
+
+TODO:
+() interpreter for levelgen scripts
+() system of measurement of various things
+() entity logic system: whether it's certain behavior flags or scripts
+	() take a look at interactions model
+() sociality system: creatures can communicate and react to actions whith some phrases
+() add needed changes in the data processor
+() data itself: creatures, items, levels...
+
+
+
+
+DONE:

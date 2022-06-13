@@ -26,9 +26,9 @@ typedef struct Tile
 #define TILE_CONTAINS_PLAYER 32
 
 
-#define LEVEL_MAX_CREATURES 64
-#define LEVEL_MAX_ITEMS 256
-#define LEVEL_MAX_FEATURES 256
+#define LEVEL_MAX_CREATURES 50
+#define LEVEL_MAX_ITEMS 500
+#define LEVEL_MAX_FEATURES 100
 
 #define LEVEL_MAX_SX 256
 #define LEVEL_MAX_SY 256
@@ -38,6 +38,7 @@ typedef struct Level
 {
 	char* name;
 	uint8_t type;
+	uint8_t next_level; // type of a next level
 
 	int size_x, size_y;
 	Tile* map;
@@ -52,6 +53,8 @@ typedef struct Level
 
 	Feature* features[LEVEL_MAX_FEATURES];
 	int cur_features;
+
+	uint64_t time;
 } Level;
 
 #define GET_TILE(level_ptr, x, y) (&level_ptr->map[x + y * level_ptr->size_x])

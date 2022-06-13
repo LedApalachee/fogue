@@ -3,3 +3,5 @@ the project uses the following libs:
 () cursess
 
 () handleline (https://github.com/LedApalachee/handleline)
+
+() randnum (https://github.com/LedApalachee/randnum)

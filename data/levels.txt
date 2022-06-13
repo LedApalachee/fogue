@@ -1,4 +1,0 @@
-{
-	N = emptyness
-	T = 1
-}

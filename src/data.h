@@ -2,9 +2,9 @@
 #define data_h
 
 #include <stdint.h>
+#include <randnum.h>
 #include "level.h"
 #include "item.h"
-#include "randnum.h"
 
 
 #define MAX_CREATURE_TYPES 100
@@ -29,7 +29,7 @@ typedef struct LimbInit
 	randuint16_t max_hp;
 	randuint16_t armor_type;
 	randuint16_t weapon_type;
-	uint16_t remains_item_type; // which item represents this limb (e.g. when it was cut off)
+	uint16_t remains_type; // which item represents this limb (e.g. when it was cut off)
 } LimbInit;
 
 // relation types
@@ -48,6 +48,8 @@ typedef struct CreatureInit
 	int8_t dexterity;
 	int8_t constitution;
 	int8_t intelligence;
+	int16_t wisdom;
+	int16_t charisma;
 	int8_t ap; // action points
 
 	LimbInit body[MAX_LIMBS];
@@ -57,7 +59,7 @@ typedef struct CreatureInit
 
 	int8_t relationships[MAX_CREATURE_TYPES]; // relation types
 
-	uint16_t corpse_item_type; // which item represents remains of this creature
+	uint16_t corpse_type; // which item represents remains of this creature
 } CreatureInit;
 
 
@@ -131,20 +133,25 @@ typedef struct ItemInit
 
 
 
+#define MAX_NEXT_LEVEL_TYPES 10;
+
 typedef struct LevelInit
 {
 	char* name;
 	uint8_t type;
 	char* mapgen_script;
+	randuint8_t next_level;
 } LevelInit;
 
 
 
 
-// an index for these arrays is "type" variable
+// an index for these arrays is a "type" variable
 CreatureInit creature_table[MAX_CREATURE_TYPES];
 ItemInit item_table[MAX_ITEM_TYPES];
 LevelInit level_table[MAX_LEVEL_TYPES];
+
+
 
 
 Creature* get_creature(uint8_t type);
@@ -152,11 +159,22 @@ Item* get_item(uint16_t type);
 Level* get_level(uint8_t type);
 
 
-
-
 int load_creature_data(char* data_file_path);
 int load_item_data(char* data_file_path);
 int load_level_data(char* data_file_path);
+
+
+
+int scan_randint64_t(randint64_t* rn, char* str, char terminator);
+int scan_randint32_t(randint32_t* rn, char* str, char terminator);
+int scan_randint16_t(randint16_t* rn, char* str, char terminator);
+int scan_randint8_t(randint8_t* rn, char* str, char terminator);
+int scan_randuint64_t(randuint64_t* rn, char* str, char terminator);
+int scan_randuint32_t(randuint32_t* rn, char* str, char terminator);
+int scan_randuint16_t(randuint16_t* rn, char* str, char terminator);
+int scan_randuint8_t(randint8_t* rn, char* str, char terminator);
+int scan_randdouble(randdouble* rn, char*str, char terminator);
+int scan_randfloat(randfloat* rn, char* str, char terminator);
 
 
 #endif

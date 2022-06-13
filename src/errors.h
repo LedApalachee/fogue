@@ -11,6 +11,7 @@
 #define INAPPROPRIATE_ID 6
 #define ID_ALREADY_EXISTS 7
 #define TILE_IS_OCCUPIED 8
+#define FILE_WASNT_FOUND 9
 
 
 #endif
