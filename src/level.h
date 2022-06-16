@@ -79,8 +79,7 @@ int level_del_feature(Level* level, int f_id);
 
 Level* generate_level(uint8_t type);
 Level* create_blank_level(int sx, int sy);
-int delete_level(Level* level, int free_level, int free_objects); // if "free_level" == true, "level" will be free()-ed
-// if "free_objects" == true, all creatures, items and features will be free()-ed (except the player)
+int delete_level(Level* level, int free_level); // if "free_level" == true, "level" will be free()-ed
 
 
 int level_move_player(Level* level, int x, int y);

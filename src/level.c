@@ -149,20 +149,9 @@ Level* create_blank_level(int sx, int sy)
 }
 
 
-int delete_level(Level* level, int free_level, int free_objects)
+int delete_level(Level* level, int free_level)
 {
 	free(level->map);
-	if (free_objects)
-	{
-		for (int i = 0; i < LEVEL_MAX_CREATURES; ++i)
-			free(level->creatures[i]);
-
-		for (int i = 0; i < LEVEL_MAX_ITEMS; ++i)
-			free(level->items[i]);
-
-		for (int i = 0; i < LEVEL_MAX_FEATURES; ++i)
-			free(level->features[i]);
-	}
 	if (free_level) free(level);
 	return ALL_GOOD;
 }

@@ -26,10 +26,10 @@ typedef struct EffectInit
 typedef struct LimbInit
 {
 	uint8_t type;
-	randuint16_t max_hp;
-	randuint16_t armor_type;
-	randuint16_t weapon_type;
-	uint16_t remains_type; // which item represents this limb (e.g. when it was cut off)
+	randint16_t max_hp;
+	randint16_t armor_type;
+	randint16_t weapon_type;
+	int16_t remains_type; // which item represents this limb (e.g. when it was cut off)
 } LimbInit;
 
 // relation types
@@ -39,27 +39,27 @@ typedef struct LimbInit
 
 typedef struct CreatureInit
 {
-	uint8_t type;
-	char* name;
-	char* description;
+	int8_t type;
+	char name[51];
+	char description[201];
 	chtype ch;
 
 	int8_t strength;
 	int8_t dexterity;
 	int8_t constitution;
 	int8_t intelligence;
-	int16_t wisdom;
-	int16_t charisma;
+	int8_t wisdom;
+	int8_t charisma;
 	int8_t ap; // action points
 
 	LimbInit body[MAX_LIMBS];
 
-	randuint16_t inventory_item_types[CREATURE_MAX_ITEMS];
+	randint16_t inventory_item_types[CREATURE_MAX_ITEMS];
 	randuint16_t inventory_item_numbers[CREATURE_MAX_ITEMS];
 
 	int8_t relationships[MAX_CREATURE_TYPES]; // relation types
 
-	uint16_t corpse_type; // which item represents remains of this creature
+	int16_t corpse_type; // which item represents remains of this creature
 } CreatureInit;
 
 
@@ -85,8 +85,8 @@ typedef struct ArmorInit
 
 typedef struct MissileInit
 {
-	uint16_t weapon_type; // which ranged weapon can shoot with this missile
-	randuint16_t damage;
+	int16_t weapon_type; // which ranged weapon can shoot with this missile
+	randint16_t damage;
 	EffectInit effect; // is activated on a targeted creature
 } MissileInit;
 
@@ -112,8 +112,8 @@ typedef struct NoteInit
 typedef struct ItemInit
 {
 	uint16_t type;
-	char* name;
-	char* description;
+	char name[51];
+	char description[101];
 	chtype ch;
 
 	randfloat weight;
@@ -133,14 +133,12 @@ typedef struct ItemInit
 
 
 
-#define MAX_NEXT_LEVEL_TYPES 10;
-
 typedef struct LevelInit
 {
 	char* name;
 	uint8_t type;
 	char* mapgen_script;
-	randuint8_t next_level;
+	randint8_t next_level;
 } LevelInit;
 
 
@@ -164,6 +162,11 @@ int load_item_data(char* data_file_path);
 int load_level_data(char* data_file_path);
 
 
+int init_creature_table();
+int init_item_table();
+int init_level_table();
+
+
 
 int scan_randint64_t(randint64_t* rn, char* str, char terminator);
 int scan_randint32_t(randint32_t* rn, char* str, char terminator);
@@ -175,6 +178,12 @@ int scan_randuint16_t(randuint16_t* rn, char* str, char terminator);
 int scan_randuint8_t(randint8_t* rn, char* str, char terminator);
 int scan_randdouble(randdouble* rn, char*str, char terminator);
 int scan_randfloat(randfloat* rn, char* str, char terminator);
+
+
+// these do leave only a useful piece of the given string, removing whitespaces and other unwanted characters from it
+// both create dynamically allocated strings, so remeber to free() them
+char* get_fieldname(char* str);
+char* get_valuestring(char* str);
 
 
 #endif

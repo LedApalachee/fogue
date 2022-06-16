@@ -32,7 +32,7 @@ typedef struct Creature
 {
 	int id;
 	uint8_t type;
-	char* name;
+	char name[51];
 	chtype ch;
 
 	int16_t pos_x, pos_y;
@@ -41,8 +41,8 @@ typedef struct Creature
 	int8_t dexterity;
 	int8_t constitution;
 	int8_t intelligence;
-	int16_t wisdom;
-	int16_t charisma;
+	int8_t wisdom;
+	int8_t charisma;
 	int8_t ap; // action points; if it's negative, it's considered how much turns are needed for commiting one action
 
 	Effect effects[CREATURE_MAX_EFFECTS];
@@ -53,7 +53,7 @@ typedef struct Creature
 						// but losses of general hp don't affect on limbs' ones
 						// if general hp is <= 0, the creature dies
 
-	float lifted_weight; // max weight is depends on the strength
+	float lifted_weight; // max weight depends on the strength
 	int16_t inventory[CREATURE_MAX_ITEMS]; // array of item id-s
 										   // worn or wielded items aren't stored in inventory
 
@@ -61,8 +61,6 @@ typedef struct Creature
 
 	uint8_t flags;
 } Creature;
-
-#define CREATURE_IS_HIDDEN 1
 
 
 typedef struct Player
@@ -72,15 +70,15 @@ typedef struct Player
 	int16_t xp, xp_max;
 	int16_t level;
 
-	int16_t strength;
-	int16_t dexterity;
-	int16_t constitution;
-	int16_t intelligence;
-	int16_t wisdom;
-	int16_t charisma;
-	uint8_t ap;
+	int8_t strength;
+	int8_t dexterity;
+	int8_t constitution;
+	int8_t intelligence;
+	int8_t wisdom;
+	int8_t charisma;
+	int8_t ap;
 
-	int effects[CREATURE_MAX_EFFECTS];
+	Effect effects[CREATURE_MAX_EFFECTS];
 
 	int16_t satiety; // if satiety <= 0 the general hp decreases by 1 every turn; also, physical stats are decreased by 25%
 	int16_t max_satiety;
@@ -88,11 +86,18 @@ typedef struct Player
 	Limb body[MAX_LIMBS];
 	int16_t hp, hp_max;
 
-	float lifted_weight; // max weight is depends on the strength
-	struct Item* inventory[CREATURE_MAX_ITEMS];
+	float lifted_weight; // max weight depends on the strength
+	int16_t inventory[CREATURE_MAX_ITEMS];
 
 	uint8_t sight_distance;
+
+	uint8_t flags;
 } Player;
+
+
+
+
+#define CREATURE_IS_HIDDEN 1
 
 
 #endif

@@ -1,610 +1,151 @@
+#include "data.h"
 #include <stdlib.h>
-#include <randnum.h>
-#include "errors.h"
 
 
-int scan_randint64_t(randint64_t* rn, char* str, char terminator)
+int init_creature_table()
 {
-	char str2[200];
-	int ig = 0;
-	int i2 = 0;
-	int sel_count = 0;
-	// the number is range-based random
-	if (str[0] == 'r')
+	for (int i = 0; i < MAX_CREATURE_TYPES; ++i)
 	{
-		// scanning the lower
-		for (ig = 1; str[ig] != '-'; ++ig)
-			str2[ig-1] = str[ig];
-		str2[ig-1] = '-';
-		rn->start = atoi(str2);
-		// scanning the higher
-		++ig;
-		for (i2 = 0; str[ig] != terminator; ++ig, ++i2)
-			str2[i2] = str[ig];
-		str2[i2] = terminator;
-		rn->end = atoi(str2);
-	}
-	// the number is select-based random
-	else if (str[0] == 's')
-	{
-		for (ig = 1, i2 = 0; sel_count < MAX_RANDNUM_MEMBERS; ++ig, ++i2)
+		creature_table[i].type = -1;
+		for (int j = 0; j < 51; ++j)
+			creature_table[i].name[j] = '\0';
+		for (int j = 0; j < 201; ++j)
+			creature_table[i].description[j] = '\0';
+		creature_table[i].ch = 0;
+		creature_table[i].strength = 0;
+		creature_table[i].dexterity = 0;
+		creature_table[i].constitution = 0;
+		creature_table[i].intelligence = 0;
+		creature_table[i].wisdom = 0;
+		creature_table[i].charisma = 0;
+		creature_table[i].ap = 0;
+		for (int j = 0; j < MAX_LIMBS; ++j)
 		{
-			str2[i2] = str[ig];
-			if (str[ig] == '%')
-			{
-				rn->set[sel_count].i = atoi(str2);
-				i2 = -1;
-			}
-			else if (str[ig] == '|')
-			{
-				rn->set[sel_count].p = atoi(str2);
-				i2 = -1;
-				++sel_count;
-			}
-			else if (str[ig] == terminator)
-			{
-				rn->set[sel_count].p = atoi(str2);
-				break;
-			}
+			creature_table[i].body[j].type = 0;
+			creature_table[i].body[j].max_hp.start = 0;
+			creature_table[i].body[j].max_hp.end = 0;
+			for (int k = 0; k < MAX_RANDNUM_MEMBERS; ++k)
+				creature_table[i].body[j].max_hp.set[k].p = 0;
+			creature_table[i].body[j].armor_type.start = -1;
+			creature_table[i].body[j].armor_type.end = -1;
+			for (int k = 0; k < MAX_RANDNUM_MEMBERS; ++k)
+				creature_table[i].body[j].armor_type.set[k].p = 0;
+			creature_table[i].body[j].weapon_type.start = -1;
+			creature_table[i].body[j].weapon_type.end = -1;
+			for (int k = 0; k < MAX_RANDNUM_MEMBERS; ++k)
+				creature_table[i].body[j].weapon_type.set[k].p = 0;
+			creature_table[i].body[j].remains_type = -1;
 		}
+		for (int j = 0; j < CREATURE_MAX_ITEMS; ++j)
+		{
+			creature_table[i].inventory_item_types[j].start = -1;
+			creature_table[i].inventory_item_types[j].end = -1;
+			for (int k = 0; k < MAX_RANDNUM_MEMBERS; ++k)
+				creature_table[i].inventory_item_types[j].set[k].p = 0;
+			creature_table[i].inventory_item_numbers[j].start = 0;
+			creature_table[i].inventory_item_numbers[j].end = 0;
+			for (int k = 0; k < MAX_RANDNUM_MEMBERS; ++k)
+				creature_table[i].inventory_item_numbers[j].set[k].p = 0;
+		}
+		for (int j = 0; j < MAX_CREATURE_TYPES; ++j)
+			creature_table[i].relationships[j] = RELATION_NEUTRAL;
+		creature_table[i].corpse_type = -1;
 	}
-	// the number is not random
-	else
-	{
-		for (i2 = 0; str[i2] != terminator; ++i2)
-			str2[i2] = str[i2];
-		str2[i2] = str[i2];
-		rn->start = rn->end = atoi(str2);
-		rn->set[0].p = 0;
-	}
-	return ALL_GOOD;
 }
 
 
 
 
-int scan_randint32_t(randint32_t* rn, char* str, char terminator)
+char* get_fieldname(char* str)
 {
-	char str2[200];
-	int ig = 0;
-	int i2 = 0;
-	int sel_count = 0;
-	// the number is range-based random
-	if (str[0] == 'r')
-	{
-		// scanning the lower
-		for (ig = 1; str[ig] != '-'; ++ig)
-			str2[ig-1] = str[ig];
-		str2[ig-1] = '-';
-		rn->start = atoi(str2);
-		// scanning the higher
-		++ig;
-		for (i2 = 0; str[ig] != terminator; ++ig, ++i2)
-			str2[i2] = str[ig];
-		str2[i2] = terminator;
-		rn->end = atoi(str2);
-	}
-	// the number is select-based random
-	else if (str[0] == 's')
-	{
-		for (ig = 1, i2 = 0; sel_count < MAX_RANDNUM_MEMBERS; ++ig, ++i2)
-		{
-			str2[i2] = str[ig];
-			if (str[ig] == '%')
-			{
-				rn->set[sel_count].i = atoi(str2);
-				i2 = -1;
-			}
-			else if (str[ig] == '|')
-			{
-				rn->set[sel_count].p = atoi(str2);
-				i2 = -1;
-				++sel_count;
-			}
-			else if (str[ig] == terminator)
-			{
-				rn->set[sel_count].p = atoi(str2);
-				break;
-			}
-		}
-	}
-	// the number is not random
-	else
-	{
-		for (i2 = 0; str[i2] != terminator; ++i2)
-			str2[i2] = str[i2];
-		str2[i2] = str[i2];
-		rn->start = rn->end = atoi(str2);
-		rn->set[0].p = 0;
-	}
-	return ALL_GOOD;
+	char* result;
+	int len = 0;
+	int i = 0;
+
+	for ( ; ; ++i)
+		if (str[i] >= 'A' && str[i] <= 'z') break;
+
+	for (int j = i; str[j] != '=' && str[j] != ' ' && str[j] != '\n' && str[j] != '\t'; ++j)
+		++len;
+
+	result = (char*)malloc(len + 1);
+
+	for (int j = 0; j < len; ++j)
+		result[j] = str[i+j];
+	result[len] = '\0';
+
+	return result;
 }
 
 
 
 
-int scan_randint16_t(randint16_t* rn, char* str, char terminator)
+char* get_valuestring(char* str)
 {
-	char str2[200];
-	int ig = 0;
-	int i2 = 0;
-	int sel_count = 0;
-	// the number is range-based random
-	if (str[0] == 'r')
+	char* result;
+	int len = 0;
+	int i = 0;
+	int j = 0;
+
+	for ( ; ; ++i)
 	{
-		// scanning the lower
-		for (ig = 1; str[ig] != '-'; ++ig)
-			str2[ig-1] = str[ig];
-		str2[ig-1] = '-';
-		rn->start = atoi(str2);
-		// scanning the higher
-		++ig;
-		for (i2 = 0; str[ig] != terminator; ++ig, ++i2)
-			str2[i2] = str[ig];
-		str2[i2] = terminator;
-		rn->end = atoi(str2);
+		if (str[i] == '\"' || str[i] == 'r' || str[i] == 's' || str[i] == '\'') break;
+		else if (str[i] >= '0' && str[i] <= '9') break;
+		else if (str[i] == '-') break;
 	}
-	// the number is select-based random
-	else if (str[0] == 's')
+
+	switch (str[i])
 	{
-		for (ig = 1, i2 = 0; sel_count < MAX_RANDNUM_MEMBERS; ++ig, ++i2)
-		{
-			str2[i2] = str[ig];
-			if (str[ig] == '%')
-			{
-				rn->set[sel_count].i = atoi(str2);
-				i2 = -1;
-			}
-			else if (str[ig] == '|')
-			{
-				rn->set[sel_count].p = atoi(str2);
-				i2 = -1;
-				++sel_count;
-			}
-			else if (str[ig] == terminator)
-			{
-				rn->set[sel_count].p = atoi(str2);
-				break;
-			}
-		}
+		case '\'':
+			len = 2;
+			result = (char*)malloc(len);
+			result[0] = str[i+1];
+			result[1] = '\0';
+			break;
+
+		case '\"':
+			len = 1;
+			for (j = i+1; str[j] != '\"'; ++j)
+				++len;
+			result = (char*)malloc(len + 1);
+			for (j = 0; j < len-1; ++j)
+				result[j] = str[i+1+j];
+			result[len] = '\0';
+			break;
+
+		case 'r':
+		case 's':
+			j = i;
+			len = 0;
+			for ( ; str[j] != ';'; ++j)
+				++len;
+			result = (char*)malloc(len + 1);
+			for (j = 0; j < len; ++j)
+				result[j] = str[i+j];
+			result[len] = '\0';
+			break;
+
+		case '-':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+			j = i;
+			len = 0;
+			for ( ; str[j] != ';'; ++j)
+				++len;
+			result = (char*)malloc(len + 1);
+			for (j = 0; j < len; ++j)
+				result[j] = str[i+j];
+			result[len] = '\0';
+			break;
 	}
-	// the number is not random
-	else
-	{
-		for (i2 = 0; str[i2] != terminator; ++i2)
-			str2[i2] = str[i2];
-		str2[i2] = str[i2];
-		rn->start = rn->end = atoi(str2);
-		rn->set[0].p = 0;
-	}
-	return ALL_GOOD;
+
+	return result;
 }
-
-
-
-
-int scan_randint8_t(randint8_t* rn, char* str, char terminator)
-{
-	char str2[200];
-	int ig = 0;
-	int i2 = 0;
-	int sel_count = 0;
-	// the number is range-based random
-	if (str[0] == 'r')
-	{
-		// scanning the lower
-		for (ig = 1; str[ig] != '-'; ++ig)
-			str2[ig-1] = str[ig];
-		str2[ig-1] = '-';
-		rn->start = atoi(str2);
-		// scanning the higher
-		++ig;
-		for (i2 = 0; str[ig] != terminator; ++ig, ++i2)
-			str2[i2] = str[ig];
-		str2[i2] = terminator;
-		rn->end = atoi(str2);
-	}
-	// the number is select-based random
-	else if (str[0] == 's')
-	{
-		for (ig = 1, i2 = 0; sel_count < MAX_RANDNUM_MEMBERS; ++ig, ++i2)
-		{
-			str2[i2] = str[ig];
-			if (str[ig] == '%')
-			{
-				rn->set[sel_count].i = atoi(str2);
-				i2 = -1;
-			}
-			else if (str[ig] == '|')
-			{
-				rn->set[sel_count].p = atoi(str2);
-				i2 = -1;
-				++sel_count;
-			}
-			else if (str[ig] == terminator)
-			{
-				rn->set[sel_count].p = atoi(str2);
-				break;
-			}
-		}
-	}
-	// the number is not random
-	else
-	{
-		for (i2 = 0; str[i2] != terminator; ++i2)
-			str2[i2] = str[i2];
-		str2[i2] = str[i2];
-		rn->start = rn->end = atoi(str2);
-		rn->set[0].p = 0;
-	}
-	return ALL_GOOD;
-}
-
-
-
-
-int scan_randuint64_t(randuint64_t* rn, char* str, char terminator)
-{
-	char str2[200];
-	int ig = 0;
-	int i2 = 0;
-	int sel_count = 0;
-	// the number is range-based random
-	if (str[0] == 'r')
-	{
-		// scanning the lower
-		for (ig = 1; str[ig] != '-'; ++ig)
-			str2[ig-1] = str[ig];
-		str2[ig-1] = '-';
-		rn->start = atoi(str2);
-		// scanning the higher
-		++ig;
-		for (i2 = 0; str[ig] != terminator; ++ig, ++i2)
-			str2[i2] = str[ig];
-		str2[i2] = terminator;
-		rn->end = atoi(str2);
-	}
-	// the number is select-based random
-	else if (str[0] == 's')
-	{
-		for (ig = 1, i2 = 0; sel_count < MAX_RANDNUM_MEMBERS; ++ig, ++i2)
-		{
-			str2[i2] = str[ig];
-			if (str[ig] == '%')
-			{
-				rn->set[sel_count].i = atoi(str2);
-				i2 = -1;
-			}
-			else if (str[ig] == '|')
-			{
-				rn->set[sel_count].p = atoi(str2);
-				i2 = -1;
-				++sel_count;
-			}
-			else if (str[ig] == terminator)
-			{
-				rn->set[sel_count].p = atoi(str2);
-				break;
-			}
-		}
-	}
-	// the number is not random
-	else
-	{
-		for (i2 = 0; str[i2] != terminator; ++i2)
-			str2[i2] = str[i2];
-		str2[i2] = str[i2];
-		rn->start = rn->end = atoi(str2);
-		rn->set[0].p = 0;
-	}
-	return ALL_GOOD;
-}
-
-
-
-
-int scan_randuint32_t(randuint32_t* rn, char* str, char terminator)
-{
-	char str2[200];
-	int ig = 0;
-	int i2 = 0;
-	int sel_count = 0;
-	// the number is range-based random
-	if (str[0] == 'r')
-	{
-		// scanning the lower
-		for (ig = 1; str[ig] != '-'; ++ig)
-			str2[ig-1] = str[ig];
-		str2[ig-1] = '-';
-		rn->start = atoi(str2);
-		// scanning the higher
-		++ig;
-		for (i2 = 0; str[ig] != terminator; ++ig, ++i2)
-			str2[i2] = str[ig];
-		str2[i2] = terminator;
-		rn->end = atoi(str2);
-	}
-	// the number is select-based random
-	else if (str[0] == 's')
-	{
-		for (ig = 1, i2 = 0; sel_count < MAX_RANDNUM_MEMBERS; ++ig, ++i2)
-		{
-			str2[i2] = str[ig];
-			if (str[ig] == '%')
-			{
-				rn->set[sel_count].i = atoi(str2);
-				i2 = -1;
-			}
-			else if (str[ig] == '|')
-			{
-				rn->set[sel_count].p = atoi(str2);
-				i2 = -1;
-				++sel_count;
-			}
-			else if (str[ig] == terminator)
-			{
-				rn->set[sel_count].p = atoi(str2);
-				break;
-			}
-		}
-	}
-	// the number is not random
-	else
-	{
-		for (i2 = 0; str[i2] != terminator; ++i2)
-			str2[i2] = str[i2];
-		str2[i2] = str[i2];
-		rn->start = rn->end = atoi(str2);
-		rn->set[0].p = 0;
-	}
-	return ALL_GOOD;
-}
-
-
-
-
-int scan_randuint16_t(randuint16_t* rn, char* str, char terminator)
-{
-	char str2[200];
-	int ig = 0;
-	int i2 = 0;
-	int sel_count = 0;
-	// the number is range-based random
-	if (str[0] == 'r')
-	{
-		// scanning the lower
-		for (ig = 1; str[ig] != '-'; ++ig)
-			str2[ig-1] = str[ig];
-		str2[ig-1] = '-';
-		rn->start = atoi(str2);
-		// scanning the higher
-		++ig;
-		for (i2 = 0; str[ig] != terminator; ++ig, ++i2)
-			str2[i2] = str[ig];
-		str2[i2] = terminator;
-		rn->end = atoi(str2);
-	}
-	// the number is select-based random
-	else if (str[0] == 's')
-	{
-		for (ig = 1, i2 = 0; sel_count < MAX_RANDNUM_MEMBERS; ++ig, ++i2)
-		{
-			str2[i2] = str[ig];
-			if (str[ig] == '%')
-			{
-				rn->set[sel_count].i = atoi(str2);
-				i2 = -1;
-			}
-			else if (str[ig] == '|')
-			{
-				rn->set[sel_count].p = atoi(str2);
-				i2 = -1;
-				++sel_count;
-			}
-			else if (str[ig] == terminator)
-			{
-				rn->set[sel_count].p = atoi(str2);
-				break;
-			}
-		}
-	}
-	// the number is not random
-	else
-	{
-		for (i2 = 0; str[i2] != terminator; ++i2)
-			str2[i2] = str[i2];
-		str2[i2] = str[i2];
-		rn->start = rn->end = atoi(str2);
-		rn->set[0].p = 0;
-	}
-	return ALL_GOOD;
-}
-
-
-
-
-int scan_randuint8_t(randuint8_t* rn, char* str, char terminator)
-{
-	char str2[200];
-	int ig = 0;
-	int i2 = 0;
-	int sel_count = 0;
-	// the number is range-based random
-	if (str[0] == 'r')
-	{
-		// scanning the lower
-		for (ig = 1; str[ig] != '-'; ++ig)
-			str2[ig-1] = str[ig];
-		str2[ig-1] = '-';
-		rn->start = atoi(str2);
-		// scanning the higher
-		++ig;
-		for (i2 = 0; str[ig] != terminator; ++ig, ++i2)
-			str2[i2] = str[ig];
-		str2[i2] = terminator;
-		rn->end = atoi(str2);
-	}
-	// the number is select-based random
-	else if (str[0] == 's')
-	{
-		for (ig = 1, i2 = 0; sel_count < MAX_RANDNUM_MEMBERS; ++ig, ++i2)
-		{
-			str2[i2] = str[ig];
-			if (str[ig] == '%')
-			{
-				rn->set[sel_count].i = atoi(str2);
-				i2 = -1;
-			}
-			else if (str[ig] == '|')
-			{
-				rn->set[sel_count].p = atoi(str2);
-				i2 = -1;
-				++sel_count;
-			}
-			else if (str[ig] == terminator)
-			{
-				rn->set[sel_count].p = atoi(str2);
-				break;
-			}
-		}
-	}
-	// the number is not random
-	else
-	{
-		for (i2 = 0; str[i2] != terminator; ++i2)
-			str2[i2] = str[i2];
-		str2[i2] = str[i2];
-		rn->start = rn->end = atoi(str2);
-		rn->set[0].p = 0;
-	}
-	return ALL_GOOD;
-}
-
-
-
-
-int scan_randdouble(randdouble* rn, char* str, char terminator)
-{
-	char str2[200];
-	int ig = 0;
-	int i2 = 0;
-	int sel_count = 0;
-	// the number is range-based random
-	if (str[0] == 'r')
-	{
-		// scanning the lower
-		for (ig = 1; str[ig] != '-'; ++ig)
-			str2[ig-1] = str[ig];
-		str2[ig-1] = '-';
-		rn->start = atof(str2);
-		// scanning the higher
-		++ig;
-		for (i2 = 0; str[ig] != terminator; ++ig, ++i2)
-			str2[i2] = str[ig];
-		str2[i2] = terminator;
-		rn->end = atof(str2);
-	}
-	// the number is select-based random
-	else if (str[0] == 's')
-	{
-		for (ig = 1, i2 = 0; sel_count < MAX_RANDNUM_MEMBERS; ++ig, ++i2)
-		{
-			str2[i2] = str[ig];
-			if (str[ig] == '%')
-			{
-				rn->set[sel_count].i = atof(str2);
-				i2 = -1;
-			}
-			else if (str[ig] == '|')
-			{
-				rn->set[sel_count].p = atoi(str2);
-				i2 = -1;
-				++sel_count;
-			}
-			else if (str[ig] == terminator)
-			{
-				rn->set[sel_count].p = atoi(str2);
-				break;
-			}
-		}
-	}
-	// the number is not random
-	else
-	{
-		for (i2 = 0; str[i2] != terminator; ++i2)
-			str2[i2] = str[i2];
-		str2[i2] = str[i2];
-		rn->start = rn->end = atof(str2);
-		rn->set[0].p = 0;
-	}
-	return ALL_GOOD;
-}
-
-
-
-
-int scan_randfloat(randfloat* rn, char* str, char terminator)
-{
-	char str2[200];
-	int ig = 0;
-	int i2 = 0;
-	int sel_count = 0;
-	// the number is range-based random
-	if (str[0] == 'r')
-	{
-		// scanning the lower
-		for (ig = 1; str[ig] != '-'; ++ig)
-			str2[ig-1] = str[ig];
-		str2[ig-1] = '-';
-		rn->start = atof(str2);
-		// scanning the higher
-		++ig;
-		for (i2 = 0; str[ig] != terminator; ++ig, ++i2)
-			str2[i2] = str[ig];
-		str2[i2] = terminator;
-		rn->end = atof(str2);
-	}
-	// the number is select-based random
-	else if (str[0] == 's')
-	{
-		for (ig = 1, i2 = 0; sel_count < MAX_RANDNUM_MEMBERS; ++ig, ++i2)
-		{
-			str2[i2] = str[ig];
-			if (str[ig] == '%')
-			{
-				rn->set[sel_count].i = atof(str2);
-				i2 = -1;
-			}
-			else if (str[ig] == '|')
-			{
-				rn->set[sel_count].p = atoi(str2);
-				i2 = -1;
-				++sel_count;
-			}
-			else if (str[ig] == terminator)
-			{
-				rn->set[sel_count].p = atoi(str2);
-				break;
-			}
-		}
-	}
-	// the number is not random
-	else
-	{
-		for (i2 = 0; str[i2] != terminator; ++i2)
-			str2[i2] = str[i2];
-		str2[i2] = str[i2];
-		rn->start = rn->end = atof(str2);
-		rn->set[0].p = 0;
-	}
-	return ALL_GOOD;
-}
-
-
-/*
-
-while it's not the end:
-	scan number
-	scan probability
-
-*/

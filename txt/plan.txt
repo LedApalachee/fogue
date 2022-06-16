@@ -11,8 +11,10 @@ TODO:
 () system of measurement of various things
 () entity logic system: whether it's certain behavior flags or scripts
 	() take a look at interactions model
-() sociality system: creatures can communicate and react to actions whith some phrases
-() add needed changes in the data processor
+() sociality system: creatures lives matter
+	() personality system
+	() behavior system
+() add needed changes in DFS and the data processor
 () data itself: creatures, items, levels...
 
 

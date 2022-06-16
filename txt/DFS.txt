@@ -1,60 +1,11 @@
-Last modified: 10 June, 2022
+Last modified: 16 June, 2022
 
 DFS - Data File Specification. This document is intented to specificate the format of fogue's entities definitions.
 
-cool features:
-() random numbers: range and selecting  (see "Random Numbers" lower)
 
 
 
-
-Common fields:
-
-N - entry point; where a new definition begins
-N:<type (a number)>:<name>
-A type must be greater than 0
-Currently, a creature type can't be higher than 100
-Currently, an item type can't be higher than 800
-Currently, a level type can't be higher than 50
-
-D - description; multiple
-D:<string>
-To denote the description's end, put "~"
-There can be maximum 2000 characters in a description (including '\n')
-
-C - character that represents the entity on the map
-C:<char>:<fg color>:<bg color>:<is bold>
-"is bold" is either 'T' or 'F' which respectively means "true" and "false"
-(see "Colors" lower)
-
-
-
-
-Creatures
-Must be defined in data/creatures.txt
-
-S - stats
-S:<strength>:<dexterity>:<constitution>:<intelligence>:<wisdom>:<charisma>:<action points>
-
-B - body part; multiple  (see "Multiple Fields" lower)
-B:<type>:<hp (r)>:<worn armor type (r)>:<wielded weapon type (r)>:<remains item type>
-Body types:
-0 is none
-1 is head
-2 is torso
-3 is leg
-4 is arm
-5 is tail
-
-I - item in inventory; multiple
-I:<item type (r)>:<item number (r)>
-
-R - relationships with other creatures; multiple
-R:<creature type>:<relation>
-relation is one of the three numbers: -1 is hostile, 0 is neutral and 1 is friendly
-
-c - corpse item type; item that represents remains of the creature
-c:<item type>
+// to rewrite
 
 
 
@@ -68,17 +19,6 @@ r<lowest>-<highest>  (e.g. r10-15)
 s<number>%<probability>|<number>%<probability> (e.g. s1%20|2%30|3%50)
 probability is in percent.
 There can be maximum 10 such variants.
-
-In this specification, each field that is availible to be random is marked with "(r)"
-
-
-
-
-Multiple Fields:
-A field can represent not only a single value but an array of them.
-Each new "F:<value>" on a new line, where "F" is the letter of the field, designates a new array element with the given value.
-Example:
-B:1:
 
 
 
