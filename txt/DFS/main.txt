@@ -1,0 +1,16 @@
+You can define your own creatures and items in Fogue by using the data files.
+These data files are "data/creatures.txt" and "data/items.txt".
+The syntax has the same format for both and looks like this:
+
+# python-like comment
+field1 = value1;
+field2 = value2;
+field3 = value3;
+...
+
+"field" is a word from the list of availible fields. These lists differ for creatures.txt and items.txt.
+"value" is a number, string or a char, depending on the field's data type.
+
+Arrangement of fields in a definition does not matter except certain ones.
+
+See text files in "design" folder for better understanding how to choose values.

@@ -10,8 +10,10 @@ typedef struct Weapon
 {
 	int16_t melee_damage;
 	int16_t ranged_damage;
+	int8_t ranged_break_number; // how much is condition decreased when someone shot with this weapon
 	Effect effect; // when struck someone or something
-	int condition;
+	int max_condition;
+	int cur_condition;
 } Weapon;
 
 
@@ -20,13 +22,14 @@ typedef struct Armor
 	int16_t defence;
 	uint8_t limb_type; // e.g. you can wear a helmet only on your head
 	uint16_t effect_type; // is active during the whole time of wearing
-	int condition;
+	int max_condition;
+	int cur_condition;
 } Armor;
 
 
 typedef struct Missile
 {
-	uint16_t weapon_type; // which ranged weapon can shoot with this missile
+	int16_t weapon_type; // which ranged weapon can shoot with this missile
 	uint16_t damage;
 	Effect effect; // is activated on a targetted creature
 } Missile;
@@ -35,8 +38,8 @@ typedef struct Missile
 typedef struct Comestible
 {
 	int nutrition;
-	int quench;
-	int shelf_life; // how many turns are left before it becomes rotten
+	int shelf_life_max;
+	int shelf_life_left; // how many turns are left before it becomes rotten
 	Effect comested_effect; // is activated when comested
 	Effect rotten_effect; // is activated when comested rotten
 } Comestible;
@@ -46,20 +49,19 @@ typedef struct Comestible
 
 typedef struct Note
 {
-	char* text;
+	char text[201];
 	uint8_t type;
 	uint8_t reveal_x[NOTE_REVEAL_MAX];
 	uint8_t reveal_y[NOTE_REVEAL_MAX];
 	uint8_t numofreveal;
+	int16_t craft_type;
 } Note;
 
-typedef enum NoteType
-{
-	NOTE_JUST_TEXT,
-	NOTE_REVEAL_ITEM,
-	NOTE_REVEAL_CREATURE,
-	NOTE_REVEAL_FEATURE
-} NoteType;
+#define NOTE_JUST_TEXT 0
+#define NOTE_REVEAL_ITEM 1
+#define NOTE_REVEAL_CREATURE 2
+#define NOTE_REVEAL_FEATURE 3
+#define NOTE_REVEAL_CRAFT 4
 
 
 #define ITEM_MAX_EFFECTS 16
@@ -67,8 +69,8 @@ typedef enum NoteType
 typedef struct Item
 {
 	int id;
-	uint16_t type;
-	char* name;
+	int16_t type;
+	char name[51];
 	chtype ch;
 
 	int16_t pos_x, pos_y;
@@ -91,25 +93,27 @@ typedef struct Item
 	uint8_t flags;
 } Item;
 
+
 // common flags
 #define ITEM_IS_UNSTACKABLE 1 // like swords in Minecraft
 #define ITEM_IS_HIDDEN 2
 #define ITEM_IS_IN_INVENTORY 4
+#define ITEM_IS_IN_EQUIPMENT 8
 
 // flags for weapons
-#define WEAPON_IS_TWO_HANDED 8
+#define WEAPON_IS_TWO_HANDED 16
+#define RANGED_NEEDS_STRENGTH 32
 
-typedef enum ItemCategory
-{
-	ITEM_NONE,
-	ITEM_WEAPON,
-	ITEM_ARMOR,
-	ITEM_MISSILE,
-	ITEM_COMESTIBLE,
-	ITEM_NOTE,
-	ITEM_MISC,
-	ITEM_MONEY
-} ItemCategory;
+
+// item categories
+#define ITEM_NONE 0
+#define ITEM_WEAPON 1
+#define ITEM_ARMOR 2
+#define ITEM_MISSILE 3
+#define ITEM_COMESTIBLE 4
+#define ITEM_NOTE 5
+#define ITEM_MISC 6
+#define ITEM_MONEY 7
 
 
 #endif

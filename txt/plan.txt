@@ -1,23 +1,25 @@
 CURRENT:
-() data processor for creatures, items and levels
-	() change DFS
-	() develop the data processors
-
+(!) ui_redraw_ui
+() scripting language
 
 
 
 TODO:
-() interpreter for levelgen scripts
-() system of measurement of various things
+() effects
+() traps
+() unique creatures
+() ability to build and ruin for creatures
+() sociality system: creatures lives matter
+	() particularly, ability to speak
 () entity logic system: whether it's certain behavior flags or scripts
 	() take a look at interactions model
-() sociality system: creatures lives matter
-	() personality system
-	() behavior system
-() add needed changes in DFS and the data processor
-() data itself: creatures, items, levels...
+() add needed changes in DFS and the scripting language
+() data itself: creatures, items, levels and maybe more
 
 
 
 
 DONE:
+() data processor for creatures, items and levels
+	() develop the data processors
+	() write DFS

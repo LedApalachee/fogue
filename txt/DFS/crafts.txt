@@ -1,0 +1,41 @@
+The list of craft fields:
+
+"type"; a number.
+initiates new craft.
+
+
+"input_type"; a number.
+an item type.
+initiates new input item.
+
+
+"input_number"; a number.
+
+
+"feat_needed"; a number.
+see "features_for_crafts.txt".
+
+
+"str_needed"; a number.
+
+
+"dex_needed"; a number.
+
+
+"con_needed"; a number.
+
+
+"int_needed"; a number.
+
+
+"wis_needed"; a number.
+
+
+"chr_needed"; a number.
+
+
+"output_type"; a number.
+an item type.
+
+
+"output_number"; a number.

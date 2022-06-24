@@ -1,0 +1,6 @@
+The world in Fogue is a chain of levels.
+
+Player appears in a starting point of a level, then player gets to the ending point and goes to the next level.
+Next level's type depends on the current's "next_level" variable, which is a random number (see "DFS/random.txt").
+
+I'm planning to make levels interactable whith each other, like some action done in one level may have impact on another.

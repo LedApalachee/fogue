@@ -1,0 +1,19 @@
+The list of level fields:
+
+"type"; a number.
+initiates a new level type.
+
+
+"name"; a string.
+
+
+"descr"; a string.
+the description.
+
+
+"mapgen_script"; a string.
+a path to a mapgen script file.
+
+
+"next_level_type"; a number.
+can be random.

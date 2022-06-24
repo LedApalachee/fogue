@@ -1,0 +1,19 @@
+black = 0;
+red = 1;
+green = 2;
+yellow = 3;
+blue = 4;
+magenta = 5;
+cyan = 6;
+white = 7;
+light black = 8;
+light red = 9;
+light green = 10;
+light yellow = 11;
+light blue = 12;
+light magenta = 13;
+light cyan = 14;
+light white = 15;
+
+
+These words don't show the precise color as terminal settings are individual and may differ from user to user.

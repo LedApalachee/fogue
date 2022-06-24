@@ -1,0 +1,5 @@
+just text = 0;
+reveal item = 1;
+reveal creature = 2;
+reveal feature = 3;
+reveal craft = 4;

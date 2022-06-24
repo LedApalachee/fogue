@@ -1,0 +1,26 @@
+A fight starts when one creature attacks another and ends when the defender accepts damage.
+
+
+Melee attack process:
+1) Attacker chooses someone's limb to strike
+2) Attacker chooses his own limb to strike with
+3) The damage = attacker's weapon's melee damage * (cur condition / max condition) + attacker's strength modifier
+4) The defence = defender's armor defence * (cur condition / max condition) + defender's constitution modifier + defender's dexterity modifier
+5) If damage > defence, defender's hp is decreased by (damage - defence), otherwise hp is not decreased at all
+6) Defender's stricken armor condition is decreased by (k * damage)
+7) Attacker's weapon condition is decreased by the same number
+8) Check if the defender died and if his armor broke down
+9) Check if attacker's weapon broke down
+
+
+Ranged attack process:
+1) Attacker chooses someone's limb to aim at
+2) Attacker chooses his limb to shoot with
+3) Attacker chooses certain missile
+4) The damage = (attacker's weapon's ranged damage * (cur condition / max condition) + missile damage + attacker's strength modifier * if needs strength) / distance
+5) The defence = defender's armor defence * (cur condition / max condition) + defender's constitution modifier + defender's dexterity modifier
+6) If damage > defence, defender's hp is decreased by (damage - defence), otherwise hp is not decreased at all
+7) Defender's stricken armor condition is decreased by (k * damage)
+8) Attacker's weapon condition is decreased by this weapon's break number
+9) Check if the defender died and if his armor broke down
+10) Check is attacker's weapon broke down

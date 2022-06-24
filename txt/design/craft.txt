@@ -1,0 +1,18 @@
+Player can make items in Fogue.
+This must be done whith special features: a workshop, a kitchen and an alchemery.
+Each is intended for its own kinds of items.
+Some crafts don't require any feature (player makes item in the same spot).
+
+Each craft takes certain input items, requires one of the three types of feature and gives certain item in result.
+Usually, items of category "misc" are needed in a craft, though other categories can be used too.
+
+Crafts also may require player's stats - if some of needed ones is not enough, craft is unavailible.
+
+Also, to do a craft, player must be known of it - he can discover new crafts in various ways:
+He can buy a recipe from a vendor.
+He can find a recipe somewhere.
+He can capture a recipe from a creature.
+He can get a recipe as a reward.
+He can hear a recipe from creatures' conversations.
+
+The same item can be a result of several crafts - currently, maximum 4 different ones.

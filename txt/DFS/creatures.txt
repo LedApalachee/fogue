@@ -1,0 +1,113 @@
+The list of creature fields:
+
+"type"; a number.
+min value = 1;
+max value = 100;
+this field initiates a new definition - all forewritten fields are associated with this one.
+
+
+"name"; a string.
+no longer than 50 chars.
+
+
+"descr"; a string.
+description.
+no longer than 200 chars.
+
+
+"ch"; a char
+character that is drawn on the screen.
+
+
+"fg_color"; a number.
+foreground color of the char.
+See "colors.txt".
+
+
+"bg_color"; a number.
+background color of the char.
+See "colors.txt".
+
+
+"ch_bold"; a number.
+either 1 (true) or 0 (false).
+finishes the char forming and assigns this to the current creature.
+
+
+"str", "dex", "con", "int", "wis", "chr"; numbers.
+6 stats: strength, dexterity, constitution, intelligence, wisdom, charisma.
+min value = -128;
+max value = 127;
+
+
+"ap"; a number.
+min value = -128;
+max value = 127;
+
+
+"limb_type"; a number.
+there are maximum 16 limbs for a creature.
+initiates a new limb - all forewritten limb fields are associated with this one.
+See "limbs.txt".
+
+
+"limb_hp"; a number.
+can be random.
+
+
+"limb_armor"; a number.
+an item type.
+can be random.
+
+
+"limb_weapon"; a number.
+an item type.
+can be random.
+
+
+"limb_remains"; a number.
+an item type.
+
+
+"satiety"; a number.
+can be random.
+
+
+"metabolism"; a number.
+
+
+"lift_limit"; a float.
+can be random.
+
+
+"inv_item_type"; a number.
+an item type.
+initiates a new item in inventory.
+
+
+"inv_item_number"; a number.
+
+
+"sight_dist"; a number.
+
+
+"creature_type"; a number.
+a creature type;
+there are maximum 27 items for a creature's inventory (limbs' worn and wielded items aren't included in the inventory).
+initiates a new relation to this creature type.
+
+
+"relation"; a number.
+either 1 (friendly), 0 (neutral) or -1 (hostile).
+
+
+"item_type"; a number.
+an item type.
+initiates a new preference rate on this item.
+
+
+"pref_rate"; a number.
+
+
+"corpse"; a number.
+an item type.

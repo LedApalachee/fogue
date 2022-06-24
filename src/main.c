@@ -24,8 +24,25 @@ int main(int argc, char** argv)
 	init_settings();
 	ui_start();
 
+	Level* level = create_blank_level(40, 40);
+
+	Creature player;
+	player.id = 0;
+	player.ch = CHAR_PLAYER | UI_COLOR_PAIR(F_COLOR_RED, F_COLOR_BLACK) | A_BOLD;
+	player.pos_x = level->size_x/2;
+	player.pos_y = level->size_y/2;
+	player.sight_distance = 10;
+
+	level_add_creature(level, &player);
+
+	for (int x = 0; x < level->size_x; ++x)
+		for (int y = 0; y < level->size_y; ++y)
+			GET_TILE(level, x, y)->ch = ',' | UI_COLOR_PAIR(F_COLOR_GREEN, F_COLOR_BLACK);
+
 	while (!quit)
 	{
+		ui_redraw_map(level);
+		ui_input(level);
 		// the loop:
 		// 1) update screen
 		// 2) handle input from user

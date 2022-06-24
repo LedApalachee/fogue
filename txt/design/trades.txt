@@ -5,19 +5,18 @@ but they definitely would whish to own a bunch or more of bananas. (let them be 
 Eventually, I'm going to come up with a trade system that considers every creature to have its own set of whishes.
 
 Every creature has its own preference rate on each item type.
-A preference rate on any item type is from -100 to 100.
 An item can be multiple. In this case, preference rate of whole of this item equals item type preference times the number of this item.
 
 1) If player buys something from a creature:
 Player picks some item from the vendor and offers some item in return.
-The cost = vendor's preference rate on the buyed item - k * player's charisma.
-The pay = vendor's preference rate on the offered item - k * vendor's charisma.
+The cost = vendor's preference rate on the buyed item - player's charisma modifier.
+The pay = vendor's preference rate on the offered item - vendor's charisma modifier.
 If pay > cost, the deal is done.
 
 2) If player sells something to a creature:
 Player offers some item to a buyer.
-The cost = buyer's preference rate on the offered item + k * player's charisma.
-From all items from the buyer's possetion, he offers one which's pay (buyer's preference rate on the buyed item - k * player's charisma) is minimal and is < cost.
+The cost = buyer's preference rate on the offered item + player's charisma modifier.
+From all items from the buyer's possetion, he offers one which's pay (buyer's preference rate on the buyed item + buyer's charisma modifier) is minimal and is < cost.
 If player refuses, then the buyer picks another item on the same principle.
 If player agrees, the deal is done.
 

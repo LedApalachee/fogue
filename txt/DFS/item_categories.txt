@@ -1,0 +1,8 @@
+none = 0;
+weapon = 1;
+armor = 2;
+missile = 3;
+comestible = 4;
+note = 5;
+misc = 6;
+money = 7;

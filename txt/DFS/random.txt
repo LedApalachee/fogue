@@ -1,0 +1,10 @@
+Numbers in the definitions can be random. There are two kinds of such numbers.
+
+() range:
+r<lowest>-<highest>  (e.g. r10-15)
+"lowest" and "highest" are included in the range
+
+() selecting:
+s<number>%<probability>|<number>%<probability> (e.g. s1%20|2%30|3%50)
+probability is in percent.
+There can be maximum 10 such variants.

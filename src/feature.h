@@ -13,19 +13,6 @@ typedef struct Chest
 } Chest;
 
 
-typedef enum TrapType
-{
-	TRAP_NONE,
-	TRAP_LANDMINE, // hurts limbs a lot
-	TRAP_BEARTRAP, // hurts limbs a little and keeps creatures in this tile for some time
-	TRAP_PIT, // keeps creatures in this tile for some time; after crawling out they are faint
-	TRAP_SPIKE, // makes creatures bleed
-	TRAP_FLASH, // makes creatures blind
-	TRAP_FIRE, // sets creatures in fire
-	TRAP_LMAO // does some shitty things
-} TrapType;
-
-
 typedef struct Feature
 {
 	uint16_t id;
@@ -34,7 +21,6 @@ typedef struct Feature
 	union
 	{
 		Chest chest;
-		int trap_type;
 		int door_condition;
 		int wall_condition;
 	} info;

@@ -1,0 +1,5 @@
+no feature = 0;
+workshop = 1;
+forge = 2;
+kitchen = 3;
+alchemery = 4;

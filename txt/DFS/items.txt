@@ -1,0 +1,145 @@
+The list of item fields.
+
+"type"; a number.
+min value = 1;
+max value = 800;
+this field initiates a new definition - all forewritten fields are associated with this one.
+
+
+"name"; a string.
+no longer than 50 chars.
+
+
+"descr"; a string.
+description.
+no longer than 200 chars.
+
+
+"ch"; a char
+character that is drawn on the screen.
+
+
+"fg_color"; a number.
+foreground color of the char.
+See "colors.txt".
+
+
+"bg_color"; a number.
+background color of the char.
+See "colors.txt".
+
+
+"ch_bold"; a number.
+either 1 (true) or 0 (false).
+finishes the char forming and assigns this to the current item.
+
+
+"weight"; a float.
+can be random.
+
+
+"category"; a number.
+See "item_categories.txt"
+
+
+"melee_damage"; a number.
+can be random.
+
+
+"ranged_damage"; a number.
+can be random.
+
+
+"ranged_break_num"; a number.
+
+
+"melee_effect_type"; a number.
+can be random.
+
+
+"melee_effect_time"; a number.
+can be random.
+
+
+"weapon_condition"; a number.
+can be random.
+
+
+"is_twohanded"; a number.
+either 1 (true) or 0 (false).
+
+
+"ranged_needs_strength"; a number.
+either 1 (true) or 0 (false);
+
+
+"defence"; a number.
+can be random.
+
+
+"armor_limb_type"; a number.
+See "limbs.txt".
+
+
+"armor_effect"; a number.
+can be random.
+
+
+"armor_condition"; a number.
+can be random.
+
+
+"missile_weapon_type"; a number.
+an item type.
+
+
+"missile_damage"; a number.
+can be random.
+
+
+"missile_effect_type"; a number.
+can be random.
+
+
+"missile_effect_time"; a number.
+can be random.
+
+
+"nutrition"; a number.
+can be random.
+
+
+"shelf_life"; a number.
+can be random.
+
+
+"comested_effect_type"; a number.
+can be random.
+
+
+"comested_effect_time"; a number.
+can be random.
+
+
+"rotten_effect_type"; a number.
+can be random.
+
+
+"rotten_effect_time"; a number.
+can be random.
+
+
+"text"; a string.
+no longer than 200 chars.
+
+
+"note_type"; a number.
+see "note_types.txt".
+
+
+"numofreveal"; a number.
+can be random.
+
+
+"is_unstackable"; a number.
+either 1 (true) or 0 (false).

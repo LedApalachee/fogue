@@ -9,7 +9,8 @@
 #define CHAR_DOOR_CLOSED '+'
 #define CHAR_DOOR_OPENED '\''
 #define CHAR_CHEST '='
-#define CHAR_WORKSHOP '_'
+#define CHAR_WORKSHOP_FORGE '_'
+#define CHAR_KITCHEN ':'
 #define CHAR_ALCHEMERY '&'
 #define CHAR_TRAP '^' // btw i date a thai girl
 #define CHAR_ENTRANCE '<'
@@ -30,6 +31,7 @@
 
 // special
 #define CHAR_PLAYER '@'
+#define CHAR_CURSOR 'X'
 
 
 #endif

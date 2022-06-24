@@ -10,6 +10,7 @@
 #define CUR_C creature_table[cur_type]
 
 
+// tested
 int load_creature_data(char* data_file_path)
 {
 	FILE* file = fopen(data_file_path, "r");
@@ -24,6 +25,7 @@ int load_creature_data(char* data_file_path)
 	int limb_count = -1;
 	int inventory_count = -1;
 	int creature_type;
+	int item_type;
 	char* fieldname;
 	char* valuestring;
 	// there may be more variables if they're needed
@@ -138,33 +140,67 @@ int load_creature_data(char* data_file_path)
 		else if (strcmp(fieldname, "limb_armor") == 0)
 		{
 			scan_randint16_t(&(CUR_C.body[limb_count].armor_type), valuestring, '\0');
+			--CUR_C.body[limb_count].armor_type.start;
+			--CUR_C.body[limb_count].armor_type.end;
+			for (int i = 0; i < MAX_RANDNUM_MEMBERS && CUR_C.body[limb_count].armor_type.set[i].p != 0; ++i)
+				--CUR_C.body[limb_count].armor_type.set[i].i;
 		}
 
 		else if (strcmp(fieldname, "limb_weapon") == 0)
 		{
 			scan_randint16_t(&(CUR_C.body[limb_count].weapon_type), valuestring, '\0');
+			--CUR_C.body[limb_count].weapon_type.start;
+			--CUR_C.body[limb_count].weapon_type.end;
+			for (int i = 0; i < MAX_RANDNUM_MEMBERS && CUR_C.body[limb_count].weapon_type.set[i].p != 0; ++i)
+				--CUR_C.body[limb_count].weapon_type.set[i].i;
 		}
 
 		else if (strcmp(fieldname, "limb_remains") == 0)
 		{
-			CUR_C.body[limb_count].remains_type = atoi(valuestring);
+			CUR_C.body[limb_count].remains_type = atoi(valuestring) - 1;
 		}
 
-		else if (strcmp(fieldname, "item_type") == 0)
+		else if (strcmp(fieldname, "satiety") == 0)
+		{
+			scan_randint16_t(&CUR_C.satiety, valuestring, '\0');
+		}
+
+		else if (strcmp(fieldname, "metabolism") == 0)
+		{
+			CUR_C.metabolism = atoi(valuestring);
+		}
+
+		else if (strcmp(fieldname, "lift_limit") == 0)
+		{
+			scan_randfloat(&CUR_C.lift_limit, valuestring, '\0');
+		}
+
+		else if (strcmp(fieldname, "inv_item_type") == 0)
 		{
 			++inventory_count;
 			if (inventory_count < CREATURE_MAX_ITEMS)
+			{
 				scan_randint16_t(&(CUR_C.inventory_item_types[inventory_count]), valuestring, '\0');
+				--CUR_C.inventory_item_types[inventory_count].start;
+				--CUR_C.inventory_item_types[inventory_count].end;
+				for (int i = 0; i < MAX_RANDNUM_MEMBERS && CUR_C.inventory_item_types[inventory_count].set[i].p != 0; ++i)
+					--CUR_C.inventory_item_types[inventory_count].set[i].i;
+			}
 		}
 
-		else if (strcmp(fieldname, "item_number") == 0)
+		else if (strcmp(fieldname, "inv_item_number") == 0)
 		{
 			scan_randuint16_t(&(CUR_C.inventory_item_numbers[inventory_count]), valuestring, '\0');
 		}
 
+		else if (strcmp(fieldname, "sight_dist") == 0)
+		{
+			CUR_C.sight_distance = atoi(valuestring);
+		}
+
 		else if (strcmp(fieldname, "creature_type") == 0)
 		{
-			creature_type = atoi(valuestring);
+			creature_type = atoi(valuestring) - 1;
 		}
 
 		else if (strcmp(fieldname, "relation") == 0)
@@ -172,9 +208,19 @@ int load_creature_data(char* data_file_path)
 			CUR_C.relationships[creature_type] = atoi(valuestring);
 		}
 
+		else if (strcmp(fieldname, "item_type") == 0)
+		{
+			item_type = atoi(valuestring) - 1;
+		}
+
+		else if (strcmp(fieldname, "pref_rate") == 0)
+		{
+			CUR_C.item_pref_rates[item_type] = atoi(valuestring);
+		}
+
 		else if (strcmp(fieldname, "corpse") == 0)
 		{
-			CUR_C.corpse_type = atoi(valuestring);
+			CUR_C.corpse_type = atoi(valuestring) - 1;
 		}
 
 		free(fieldname);

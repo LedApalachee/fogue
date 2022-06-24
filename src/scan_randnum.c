@@ -3,6 +3,7 @@
 #include "errors.h"
 
 
+// tested
 int scan_randint64_t(randint64_t* rn, char* str, char terminator)
 {
 	char str2[200];
@@ -23,6 +24,7 @@ int scan_randint64_t(randint64_t* rn, char* str, char terminator)
 			str2[i2] = str[ig];
 		str2[i2] = terminator;
 		rn->end = atoi(str2);
+		rn->set[0].p = 0;
 	}
 	// the number is select-based random
 	else if (str[0] == 's')
@@ -47,6 +49,8 @@ int scan_randint64_t(randint64_t* rn, char* str, char terminator)
 				break;
 			}
 		}
+		++sel_count;
+		for (; sel_count < MAX_RANDNUM_MEMBERS; ++sel_count) rn->set[sel_count].p = 0;
 	}
 	// the number is not random
 	else
@@ -63,6 +67,7 @@ int scan_randint64_t(randint64_t* rn, char* str, char terminator)
 
 
 
+// tested
 int scan_randint32_t(randint32_t* rn, char* str, char terminator)
 {
 	char str2[200];
@@ -83,6 +88,7 @@ int scan_randint32_t(randint32_t* rn, char* str, char terminator)
 			str2[i2] = str[ig];
 		str2[i2] = terminator;
 		rn->end = atoi(str2);
+		rn->set[0].p = 0;
 	}
 	// the number is select-based random
 	else if (str[0] == 's')
@@ -107,6 +113,8 @@ int scan_randint32_t(randint32_t* rn, char* str, char terminator)
 				break;
 			}
 		}
+		++sel_count;
+		for (; sel_count < MAX_RANDNUM_MEMBERS; ++sel_count) rn->set[sel_count].p = 0;
 	}
 	// the number is not random
 	else
@@ -123,6 +131,7 @@ int scan_randint32_t(randint32_t* rn, char* str, char terminator)
 
 
 
+// tested
 int scan_randint16_t(randint16_t* rn, char* str, char terminator)
 {
 	char str2[200];
@@ -143,6 +152,7 @@ int scan_randint16_t(randint16_t* rn, char* str, char terminator)
 			str2[i2] = str[ig];
 		str2[i2] = terminator;
 		rn->end = atoi(str2);
+		rn->set[0].p = 0;
 	}
 	// the number is select-based random
 	else if (str[0] == 's')
@@ -167,6 +177,8 @@ int scan_randint16_t(randint16_t* rn, char* str, char terminator)
 				break;
 			}
 		}
+		++sel_count;
+		for (; sel_count < MAX_RANDNUM_MEMBERS; ++sel_count) rn->set[sel_count].p = 0;
 	}
 	// the number is not random
 	else
@@ -183,6 +195,7 @@ int scan_randint16_t(randint16_t* rn, char* str, char terminator)
 
 
 
+// tested
 int scan_randint8_t(randint8_t* rn, char* str, char terminator)
 {
 	char str2[200];
@@ -203,6 +216,7 @@ int scan_randint8_t(randint8_t* rn, char* str, char terminator)
 			str2[i2] = str[ig];
 		str2[i2] = terminator;
 		rn->end = atoi(str2);
+		rn->set[0].p = 0;
 	}
 	// the number is select-based random
 	else if (str[0] == 's')
@@ -227,6 +241,8 @@ int scan_randint8_t(randint8_t* rn, char* str, char terminator)
 				break;
 			}
 		}
+		++sel_count;
+		for (; sel_count < MAX_RANDNUM_MEMBERS; ++sel_count) rn->set[sel_count].p = 0;
 	}
 	// the number is not random
 	else
@@ -243,6 +259,7 @@ int scan_randint8_t(randint8_t* rn, char* str, char terminator)
 
 
 
+// tested
 int scan_randuint64_t(randuint64_t* rn, char* str, char terminator)
 {
 	char str2[200];
@@ -263,6 +280,7 @@ int scan_randuint64_t(randuint64_t* rn, char* str, char terminator)
 			str2[i2] = str[ig];
 		str2[i2] = terminator;
 		rn->end = atoi(str2);
+		rn->set[0].p = 0;
 	}
 	// the number is select-based random
 	else if (str[0] == 's')
@@ -287,6 +305,8 @@ int scan_randuint64_t(randuint64_t* rn, char* str, char terminator)
 				break;
 			}
 		}
+		++sel_count;
+		for (; sel_count < MAX_RANDNUM_MEMBERS; ++sel_count) rn->set[sel_count].p = 0;
 	}
 	// the number is not random
 	else
@@ -303,6 +323,7 @@ int scan_randuint64_t(randuint64_t* rn, char* str, char terminator)
 
 
 
+// tested
 int scan_randuint32_t(randuint32_t* rn, char* str, char terminator)
 {
 	char str2[200];
@@ -323,6 +344,7 @@ int scan_randuint32_t(randuint32_t* rn, char* str, char terminator)
 			str2[i2] = str[ig];
 		str2[i2] = terminator;
 		rn->end = atoi(str2);
+		rn->set[0].p = 0;
 	}
 	// the number is select-based random
 	else if (str[0] == 's')
@@ -347,6 +369,8 @@ int scan_randuint32_t(randuint32_t* rn, char* str, char terminator)
 				break;
 			}
 		}
+		++sel_count;
+		for (; sel_count < MAX_RANDNUM_MEMBERS; ++sel_count) rn->set[sel_count].p = 0;
 	}
 	// the number is not random
 	else
@@ -363,6 +387,7 @@ int scan_randuint32_t(randuint32_t* rn, char* str, char terminator)
 
 
 
+// tested
 int scan_randuint16_t(randuint16_t* rn, char* str, char terminator)
 {
 	char str2[200];
@@ -383,6 +408,7 @@ int scan_randuint16_t(randuint16_t* rn, char* str, char terminator)
 			str2[i2] = str[ig];
 		str2[i2] = terminator;
 		rn->end = atoi(str2);
+		rn->set[0].p = 0;
 	}
 	// the number is select-based random
 	else if (str[0] == 's')
@@ -407,6 +433,8 @@ int scan_randuint16_t(randuint16_t* rn, char* str, char terminator)
 				break;
 			}
 		}
+		++sel_count;
+		for (; sel_count < MAX_RANDNUM_MEMBERS; ++sel_count) rn->set[sel_count].p = 0;
 	}
 	// the number is not random
 	else
@@ -423,6 +451,7 @@ int scan_randuint16_t(randuint16_t* rn, char* str, char terminator)
 
 
 
+// tested
 int scan_randuint8_t(randuint8_t* rn, char* str, char terminator)
 {
 	char str2[200];
@@ -443,6 +472,7 @@ int scan_randuint8_t(randuint8_t* rn, char* str, char terminator)
 			str2[i2] = str[ig];
 		str2[i2] = terminator;
 		rn->end = atoi(str2);
+		rn->set[0].p = 0;
 	}
 	// the number is select-based random
 	else if (str[0] == 's')
@@ -467,6 +497,8 @@ int scan_randuint8_t(randuint8_t* rn, char* str, char terminator)
 				break;
 			}
 		}
+		++sel_count;
+		for (; sel_count < MAX_RANDNUM_MEMBERS; ++sel_count) rn->set[sel_count].p = 0;
 	}
 	// the number is not random
 	else
@@ -483,6 +515,7 @@ int scan_randuint8_t(randuint8_t* rn, char* str, char terminator)
 
 
 
+// tested
 int scan_randdouble(randdouble* rn, char* str, char terminator)
 {
 	char str2[200];
@@ -503,6 +536,7 @@ int scan_randdouble(randdouble* rn, char* str, char terminator)
 			str2[i2] = str[ig];
 		str2[i2] = terminator;
 		rn->end = atof(str2);
+		rn->set[0].p = 0;
 	}
 	// the number is select-based random
 	else if (str[0] == 's')
@@ -527,6 +561,8 @@ int scan_randdouble(randdouble* rn, char* str, char terminator)
 				break;
 			}
 		}
+		++sel_count;
+		for (; sel_count < MAX_RANDNUM_MEMBERS; ++sel_count) rn->set[sel_count].p = 0;
 	}
 	// the number is not random
 	else
@@ -543,6 +579,7 @@ int scan_randdouble(randdouble* rn, char* str, char terminator)
 
 
 
+// tested
 int scan_randfloat(randfloat* rn, char* str, char terminator)
 {
 	char str2[200];
@@ -563,6 +600,7 @@ int scan_randfloat(randfloat* rn, char* str, char terminator)
 			str2[i2] = str[ig];
 		str2[i2] = terminator;
 		rn->end = atof(str2);
+		rn->set[0].p = 0;
 	}
 	// the number is select-based random
 	else if (str[0] == 's')
@@ -587,6 +625,8 @@ int scan_randfloat(randfloat* rn, char* str, char terminator)
 				break;
 			}
 		}
+		++sel_count;
+		for (; sel_count < MAX_RANDNUM_MEMBERS; ++sel_count) rn->set[sel_count].p = 0;
 	}
 	// the number is not random
 	else

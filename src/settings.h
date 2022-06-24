@@ -4,7 +4,6 @@
 #include <curses.h>
 
 
-#define DEFAULT_PLAYER_SIGHT_DISTANCE 10
 #define MAX_ITEMS_ON_TILE 10
 
 
@@ -24,6 +23,7 @@ int KEY_MOVE_UP_RIGHT[MAX_KEYS_IN_ONE];
 
 // priority 3
 int KEY_STAY[MAX_KEYS_IN_ONE];
+int KEY_PRINT_TILE[MAX_KEYS_IN_ONE];
 
 // priority 4
 int KEY_EXIT_GAME[MAX_KEYS_IN_ONE];

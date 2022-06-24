@@ -1,0 +1,6 @@
+none = 0;
+head = 1;
+torso = 2;
+leg = 3;
+arm = 4;
+tail = 5;

@@ -1,0 +1,123 @@
+() Object ID
+Every creature, every item and every feature have their own unique (in the scope of a level) ID numbers.
+The minimal creature ID is 0 and is reserved for player.
+Maximum creature ID is not certainly defined and depends on how much creatures can a level contain.
+The same is for creatures and features.
+IDs are stored in tiles (instead of pointers to actual objects) and are indecies for level's arrays of object pointers;
+In many fields IDs are used instead of them.
+
+
+
+
+() Object type
+Every creature (or item) has certain type.
+A type is a certain number from the list of all types.
+A type number serves as an index for an object table (in "data.h").
+
+
+
+
+() Stats
+Six major characteristics of all creatures, each of whiches has certain impact on certain processes.
+There is no logic boundaries for a stat's range, but actually they are restricted from -128 to 127.
+
+
+
+
+() Action points, AP
+Action points (AP) represent a creature's speed.
+If AP > 0, then it shows how many actions can this creature do in one turn.
+If AP < 0, then it shows how many turns this creature requires to do one action.
+Usually, most of creatures are able to commit one action per turn.
+Notice: AP equal to -1 is the same as AP equal to 1.
+
+
+
+
+() HP
+There are two kinds of creature's hit points: general HP and limb HP (GHP, LHP).
+LHP are hit points of one creature's limb, while GHP represent hit points of the whole body commonly.
+Initially, GHP equals the sum of all creature's limbs' HP.
+If GHP of a creature <= 0, then this creature dies.
+If LHP of a limb <= 0, then this limb is either detached from the body or is just remained lifeless; if this limb was the last head or the last torso, then the creature dies.
+Loss of LHP is substracted from GHP, but loss of GHP doesn't affect LHP at all.
+GHP and LHP gradually restore themselves when the creature is in peace.
+Also, GHP and LHP can be restored by some medical intervention.
+
+
+
+
+() Satiety
+Every creature needs food to gain energy.
+If satiety <= 0, creature's strength, dexterity and constitution are halved.
+
+
+
+
+() Metabolism
+Represents how much is satiety decreased in a period of time.
+If > 0, it shows in how many turns satiety decreases by 1.
+If < 0, it shows how much satiety decreases per one turn.
+
+
+() Sight distance
+This shows how far can a creature see.
+It is measured in the number of tiles the creature's sight passed through.
+
+
+
+
+() Preference rate
+This shows how much a creature desires some item.
+
+
+
+
+() Weight
+Is measured in kilograms.
+When a creature picks up some item, (item's weight * item's number) is added to his lifted weight.
+Every creature has limit of lifted weight, which is certained previously.
+If a creature holds weight greater than the limit, this creature gets "Burden" effect.
+
+
+
+
+() Item number
+Item in Fogue not always is a single object, it also may be some stack of several things that have the same properties.
+Such item takes a single slot in inventory like it's just one.
+Not all items are allowed to be stacked.
+
+
+
+
+() Condition
+Weapons and armor are not eternally intact and after some time of usage fall into disrepair.
+Condition is a number that shows how much is left for a weapon or armor to be finely used.
+If condition <= 0, the weapon or armor is not fully destroyed and removed from the game, but becomes completely disadvantageous.
+
+
+
+
+() Ranged break number
+Shows how much does a ranged weapon lose its condition after shooting whith one missile.
+
+
+
+
+() Nutrition
+Represents how much a creature's satiety is increased after it eats this comestible item.
+Notice that nutrition can also be < 0, then satiety is decreased instead.
+
+
+
+
+() Shelf life
+Food rots.
+Shelf life shows how much turns are left before this food is considered rotten.
+After this number becomes <= 0, the item gets special effect which is defined previously.
+
+
+() Effect time
+Shows how many turns left before an effect is gone.
+When it == 0, the effect finishes.
+If it == -1, the effect is considered eternal.
