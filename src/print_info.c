@@ -38,7 +38,7 @@ void print_creature(Creature* creature)
 	printf("inventory:\n%d;", creature->inventory[0]);
 	for (int i = 1; i < CREATURE_MAX_ITEMS; ++i)
 		printf(" %d;", creature->inventory[i]);
-	printf("\n");
+	printf("%d items\n", creature->cur_items);
 
 	printf("cur enemies:\n%d;", creature->cur_enemies[0]);
 	for (int i = 1; i < CREATURE_MAX_ENEMIES; ++i)

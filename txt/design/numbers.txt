@@ -2,9 +2,9 @@
 Every creature, every item and every feature have their own unique (in the scope of a level) ID numbers.
 The minimal creature ID is 0 and is reserved for player.
 Maximum creature ID is not certainly defined and depends on how much creatures can a level contain.
-The same is for creatures and features.
+The same is for items and features.
 IDs are stored in tiles (instead of pointers to actual objects) and are indecies for level's arrays of object pointers;
-In many fields IDs are used instead of them.
+In many fields IDs are used instead of pointers.
 
 
 
@@ -19,15 +19,15 @@ A type number serves as an index for an object table (in "data.h").
 
 () Stats
 Six major characteristics of all creatures, each of whiches has certain impact on certain processes.
-There is no logic boundaries for a stat's range, but actually they are restricted from -128 to 127.
+There is no logic boundaries for a stat's range, but physically they are restricted from -128 to 127.
 
 
 
 
 () Action points, AP
 Action points (AP) represent a creature's speed.
-If AP > 0, then it shows how many actions can this creature do in one turn.
-If AP < 0, then it shows how many turns this creature requires to do one action.
+If AP > 0, it shows how many actions can this creature do in one turn.
+If AP < 0, it shows how many turns this creature requires to do one action.
 Usually, most of creatures are able to commit one action per turn.
 Notice: AP equal to -1 is the same as AP equal to 1.
 
@@ -36,7 +36,7 @@ Notice: AP equal to -1 is the same as AP equal to 1.
 
 () HP
 There are two kinds of creature's hit points: general HP and limb HP (GHP, LHP).
-LHP are hit points of one creature's limb, while GHP represent hit points of the whole body commonly.
+LHP are hit points of a creature's limb, while GHP represent hit points of the whole body commonly.
 Initially, GHP equals the sum of all creature's limbs' HP.
 If GHP of a creature <= 0, then this creature dies.
 If LHP of a limb <= 0, then this limb is either detached from the body or is just remained lifeless; if this limb was the last head or the last torso, then the creature dies.
@@ -55,9 +55,11 @@ If satiety <= 0, creature's strength, dexterity and constitution are halved.
 
 
 () Metabolism
-Represents how much is satiety decreased in a period of time.
+Represents how much is a creature's satiety decreased in a period of time.
 If > 0, it shows in how many turns satiety decreases by 1.
 If < 0, it shows how much satiety decreases per one turn.
+
+
 
 
 () Sight distance
@@ -69,6 +71,8 @@ It is measured in the number of tiles the creature's sight passed through.
 
 () Preference rate
 This shows how much a creature desires some item.
+There are no certain boundaries for this number.
+It may be positive (creature wants it), zero (creature doesn't) and negative (creature wants to get rid of this thing)
 
 
 
@@ -115,6 +119,8 @@ Notice that nutrition can also be < 0, then satiety is decreased instead.
 Food rots.
 Shelf life shows how much turns are left before this food is considered rotten.
 After this number becomes <= 0, the item gets special effect which is defined previously.
+
+
 
 
 () Effect time

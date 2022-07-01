@@ -1,5 +1,5 @@
-#ifndef creature_h
-#define creature_h
+#ifndef CREATURE_H
+#define CREATURE_H
 
 #include <stdint.h>
 #include <curses.h>
@@ -71,6 +71,7 @@ typedef struct Creature
 
 	float lifted_weight;
 	float lift_limit;
+	int8_t cur_items;
 	int16_t inventory[CREATURE_MAX_ITEMS]; // array of item id-s
 										   // worn or wielded items aren't stored in inventory
 
@@ -89,7 +90,7 @@ typedef struct Creature
 
 
 
-/*    player special fields    */
+/*    special player fields    */
 Creature* player_ptr; // must be allocated in the beginning of the game and freed in the end
 int known_crafts_number;
 int16_t* known_craft_types; // must be allocated in the beginning of the game and freed in the end
@@ -98,6 +99,16 @@ int16_t* known_craft_types; // must be allocated in the beginning of the game an
 
 
 void player_discover_craft(int16_t craft_type);
+
+// removes the item from its tile (set "level" 0 for not doing that)
+// add this tile to creature's inventory
+// returns CREATURE_INVENTORY_IS_FULL if (you understand what).
+int inventory_add_item(struct Level* level, Creature* creature, struct Item* item);
+
+// removes the item from creature's inventory
+// puts this item on creature's tile (set "level" 0 for not doing that)
+// returns TOO_MANY_ITEMS_ON_TILE if the item can't be placed on this tile
+int inventory_del_item(struct Level* level, Creature* creature, struct Item* item);
 
 
 #endif

@@ -1,10 +1,13 @@
 CURRENT:
-(!) ui_redraw_ui
-() scripting language
+() remake ui system
+	() make string window system
+
 
 
 
 TODO:
+() test level.c funcs
+() scripting language
 () effects
 () traps
 () unique creatures
@@ -23,3 +26,5 @@ DONE:
 () data processor for creatures, items and levels
 	() develop the data processors
 	() write DFS
+
+() make menu system

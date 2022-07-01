@@ -1,5 +1,5 @@
-#ifndef level_h
-#define level_h
+#ifndef LEVEL_H
+#define LEVEL_H
 
 #include <stdint.h>
 #include <ncurses.h>
@@ -28,7 +28,8 @@ typedef struct Tile
 #define TILE_IS_FORGE 64
 #define TILE_IS_KITCHEN 128
 #define TILE_IS_ALCHEMERY 256
-#define TILE_IS_ENDING_POINT 512
+#define TILE_IS_WATER 512
+#define TILE_IS_ENDING_POINT 1024
 
 
 #define LEVEL_MAX_CREATURES 50
@@ -48,6 +49,7 @@ typedef struct Level
 	int size_x, size_y;
 	Tile* map;
 	chtype floor_ch;
+	chtype water_ch;
 
 	// the first creature (creatures[0]) is player
 	Creature* creatures[LEVEL_MAX_CREATURES];
@@ -67,29 +69,25 @@ typedef struct Level
 
 
 
-// adds object to appropriate array
-// places it on the map
-// performs some other actions if they're needed
-int level_add_creature(Level* level, Creature* creature);
-int level_add_item(Level* level, Item* item);
-int level_add_feature(Level* level, Feature* feature);
+int level_add_creature(Level* level, Creature* creature, int x, int y);
+int level_add_item(Level* level, Item* item, int x, int y, int inventory);
+// if "inventory" is TRUE, the item will be placed in a creature's inventory if it's in the same tile
+int level_add_feature(Level* level, Feature* feature, int x, int y);
 
 
-// removes object from the map
-// removes object from its array
-int level_del_creature(Level* level, int c_id, int to_free);
-int level_del_item(Level* level, int i_id, int to_free);
-int level_del_feature(Level* level, int f_id, int to_free);
+int level_del_creature(Level* level, Creature* creature);
+int level_del_item(Level* level, Item* item);
+int level_del_feature(Level* level, Feature* feature);
 
 
 Level* generate_level(int8_t type);
-Level* create_blank_level(int sx, int sy);
+Level* create_blank_level(int sx, int sy); // returns a dynamically allocated pointer
 int delete_level(Level* level, int free_level); // if "free_level" == true, "level" will be free()-ed
 
 
-int level_move_creature(Level* level, int c_id, int x, int y);
-int level_move_item(Level* level, int i_id, int x, int y);
-int level_move_feature(Level* level, int f_id, int x, int y);
+int level_move_creature(Level* level, Creature* creature, int x, int y);
+int level_move_item(Level* level, Item* item, int x, int y);
+int level_move_feature(Level* level, Feature* feature, int x, int y);
 
 
 #endif

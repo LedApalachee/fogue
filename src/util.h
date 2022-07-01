@@ -1,5 +1,5 @@
-#ifndef util_h
-#define util_h
+#ifndef UTIL_H
+#define UTIL_H
 
 
 #define SETF(flags, flag) (flags |= flag)

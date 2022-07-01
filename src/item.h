@@ -1,5 +1,5 @@
-#ifndef item_h
-#define item_h
+#ifndef ITEM_H
+#define ITEM_H
 
 #include <stdint.h>
 #include <curses.h>

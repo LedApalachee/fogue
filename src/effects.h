@@ -1,5 +1,5 @@
-#ifndef effects_h
-#define effects_h
+#ifndef EFFECTS_H
+#define EFFECTS_H
 
 #include <stdint.h>
 

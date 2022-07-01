@@ -1,5 +1,5 @@
-#ifndef feature_h
-#define feature_h
+#ifndef FEATURE_H
+#define FEATURE_H
 
 #include <stdint.h>
 

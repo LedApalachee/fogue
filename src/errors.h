@@ -1,5 +1,5 @@
-#ifndef errors_h
-#define errors_h
+#ifndef ERRORS_H
+#define ERRORS_H
 
 
 #define ALL_GOOD 0
@@ -8,10 +8,13 @@
 #define TOO_MANY_ITEMS_ON_TILE 3
 #define NO_ITEMS_ON_TILE 4
 #define TERMINAL_IS_TOO_SMALL 5
-#define INAPPROPRIATE_ID 6
-#define ID_ALREADY_EXISTS 7
-#define TILE_IS_OCCUPIED 8
-#define FILE_NOT_FOUND 9
+#define TILE_IS_OCCUPIED 6
+#define FILE_NOT_FOUND 7
+#define UI_LEVEL_IS_NULL 8
+#define NOBODY_TO_POSSESS_ITEM 9
+#define CREATURE_INVENTORY_IS_FULL 10
+#define WIN_CROSSES_TERMINAL_BOUNDS 11
+
 
 
 #endif

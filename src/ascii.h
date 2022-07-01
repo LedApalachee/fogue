@@ -12,7 +12,7 @@
 #define CHAR_WORKSHOP_FORGE '_'
 #define CHAR_KITCHEN ':'
 #define CHAR_ALCHEMERY '&'
-#define CHAR_TRAP '^' // btw i date a thai girl
+#define CHAR_TRAP '^' // btw i date a Thai girl
 #define CHAR_ENTRANCE '<'
 #define CHAR_EXIT '>'
 

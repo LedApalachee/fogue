@@ -201,8 +201,7 @@ Creature* get_creature(Level* level, int8_t type, int x, int y)
 
 	// creating new creature and its items
 	Creature* creature = (Creature*)malloc(sizeof(Creature));
-	creature->pos_x = x;
-	creature->pos_y = y;
+	// to finish (but later)
 }
 
 

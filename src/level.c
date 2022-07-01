@@ -5,112 +5,122 @@
 #include "errors.h"
 #include "settings.h"
 #include "util.h"
+#include "creature.h"
 
 
-int level_add_creature(Level* level, Creature* creature)
+int level_add_creature(Level* level, Creature* creature, int x, int y)
 {
-	// step 1: check for exceptions
 	if (level->cur_creatures >= LEVEL_MAX_CREATURES) return OBJ_ARRAY_IS_FULL;
-	if (level->creatures[creature->id] != 0) return ID_ALREADY_EXISTS;
-	Tile* dest_tile = GET_TILE(level, creature->pos_x, creature->pos_y);
+	Tile* dest_tile = GET_TILE(level, x, y);
 	if (dest_tile->creature_id != -1) return TILE_IS_OCCUPIED;
-	// step 2: add "creature" to the array
-	for (int i = 1; i < LEVEL_MAX_CREATURES; ++ i)
+	for (int i = 1; i < LEVEL_MAX_CREATURES; ++i)
 		if (level->creatures[i] == 0)
 		{
-			creature->id = i;
 			level->creatures[i] = creature;
-			level->cur_creatures++;
-			break;
+			++level->cur_creatures;
+			dest_tile->creature_id = i;
+			creature->id = i;
+			creature->pos_x = x;
+			creature->pos_y = y;
+			return ALL_GOOD;
 		}
-	// step 3: place "creature" on the map
-	dest_tile->creature_id = creature->id;
-	return ALL_GOOD;
+	return OBJ_ARRAY_IS_FULL;
 }
 
 
-// tested
-int level_add_item(Level* level, Item* item)
+int level_add_item(Level* level, Item* item, int x, int y, int inventory)
 {
 	if (level->cur_items >= LEVEL_MAX_ITEMS) return OBJ_ARRAY_IS_FULL;
-	if (level->items[item->id] != 0) return ID_ALREADY_EXISTS;
-	Tile* cur_tile = GET_TILE(level, item->pos_x, item->pos_y);
-	if (cur_tile->items_number >= MAX_ITEMS_ON_TILE) return TOO_MANY_ITEMS_ON_TILE;
-	level->items[item->id] = item;
-	level->cur_items++;
-	cur_tile->item_ids[cur_tile->items_number] = item->id;
-	cur_tile->items_number++;
-	return ALL_GOOD;
+	Tile* dest_tile = GET_TILE(level, x, y);
+	if (inventory && dest_tile->creature_id == -1) return NOBODY_TO_POSSESS_ITEM;
+	if (!inventory && dest_tile->items_number >= MAX_ITEMS_ON_TILE) return TOO_MANY_ITEMS_ON_TILE;
+	for (int i = 0; i < LEVEL_MAX_ITEMS; ++i)
+		if (level->items[i] == 0)
+		{
+			if (inventory)
+				if (inventory_add_item(0, level->creatures[dest_tile->creature_id], item) != ALL_GOOD)
+					return NOBODY_TO_POSSESS_ITEM;
+			else
+			{
+				++dest_tile->items_number;
+				dest_tile->item_ids[dest_tile->items_number-1] = i;
+			}
+			level->items[i] = item;
+			++level->cur_items;
+			item->id = i;
+			item->pos_x = x;
+			item->pos_y = y;
+			return ALL_GOOD;
+		}
+	return OBJ_ARRAY_IS_FULL;
 }
 
 
-// tested
-int level_add_feature(Level* level, Feature* feature)
+int level_add_feature(Level* level, Feature* feature, int x, int y)
 {
 	if (level->cur_features >= LEVEL_MAX_FEATURES) return OBJ_ARRAY_IS_FULL;
-	if (level->features[feature->id] != 0) return ID_ALREADY_EXISTS;
-	Tile* dest_tile = GET_TILE(level, feature->pos_x, feature->pos_y);
+	Tile* dest_tile = GET_TILE(level, x, y);
 	if (dest_tile->feature_id != -1) return TILE_IS_OCCUPIED;
-	level->features[feature->id] = feature;
-	level->cur_features++;
-	dest_tile->feature_id = feature->id;
-	dest_tile->flags = (feature->flags << 4) >> 4; // copying first four flags from "feature" to the destined tile
-	if (feature->flags & FEATURE_IS_HIDDEN)
-	{
-		dest_tile->ch = CHAR_FLOOR;
-		dest_tile->flags |= TILE_IS_TRANSPARENT;
-	}
-	else dest_tile->ch = feature->ch;
-	return ALL_GOOD;
+	for (int i = 0; i < LEVEL_MAX_FEATURES; ++i)
+		if (level->features[i] == 0)
+		{
+			level->features[i] = feature;
+			++level->cur_features;
+			dest_tile->feature_id = i;
+			dest_tile->flags = (feature->flags << (sizeof(dest_tile->flags)*8 - 4)) >> (sizeof(dest_tile->flags)*8 - 4);
+			if (feature->flags & FEATURE_IS_HIDDEN)
+			{
+				dest_tile->ch = level->floor_ch;
+				dest_tile->flags |= TILE_IS_TRANSPARENT;
+			}
+			else dest_tile->ch = feature->ch;
+			feature->id = i;
+			feature->pos_x = x;
+			feature->pos_y = y;
+			return ALL_GOOD;
+		}
+	return OBJ_ARRAY_IS_FULL;
 }
 
 
 
 
-// tested
-int level_del_creature(Level* level, int c_id, int to_free)
+int level_del_creature(Level* level, Creature* creature)
 {
-	if (level->creatures[c_id] == 0) return OBJ_NOT_FOUND;
-	GET_TILE(level, level->creatures[c_id]->pos_x, level->creatures[c_id]->pos_y)->creature_id = -1;
-	if (to_free) free(level->creatures[c_id]);
-	level->creatures[c_id] = 0;
-	level->cur_creatures--;
+	if (level->creatures[creature->id] == 0) return OBJ_NOT_FOUND;
+	GET_TILE(level, creature->pos_x, creature->pos_y)->creature_id = -1;
+	level->creatures[creature->id] = 0;
+	--level->cur_creatures;
 	return ALL_GOOD;
 }
 
 
-// i doubt this function very much
-// P.S. i don't remember why
-// tested
-int level_del_item(Level* level, int i_id, int to_free)
+int level_del_item(Level* level, Item* item)
 {
-	if (level->items[i_id] == 0) return OBJ_NOT_FOUND;
-	Tile* cur_tile = GET_TILE(level, level->items[i_id]->pos_x, level->items[i_id]->pos_y);
+	if (level->items[item->id] == 0) return OBJ_NOT_FOUND;
+	Tile* cur_tile = GET_TILE(level, item->pos_x, item->pos_y);
 	for (int i = 0; i < MAX_ITEMS_ON_TILE; ++i)
-		if (cur_tile->item_ids[i] == i_id)
+		if (cur_tile->item_ids[i] == item->id)
 		{
 			for (int j = i; j < MAX_ITEMS_ON_TILE-1; ++j)
 				cur_tile->item_ids[j] = cur_tile->item_ids[j+1];
-			cur_tile->items_number--;
+			--cur_tile->items_number;
 		}
-	if (to_free) free(level->items[i_id]);
-	level->items[i_id] = 0;
-	level->cur_items--;
+	level->items[item->id] = 0;
+	--level->cur_items;
 	return ALL_GOOD;
 }
 
 
-// tested
-int level_del_feature(Level* level, int f_id, int to_free)
+int level_del_feature(Level* level, Feature* feature)
 {
-	if (level->features[f_id] == 0) return OBJ_NOT_FOUND;
-	Tile* cur_tile = GET_TILE(level, level->features[f_id]->pos_x, level->features[f_id]->pos_y);
+	if (level->features[feature->id] == 0) return OBJ_NOT_FOUND;
+	Tile* cur_tile = GET_TILE(level, feature->pos_x, feature->pos_y);
 	cur_tile->feature_id = -1;
 	cur_tile->ch = level->floor_ch;
 	cur_tile->flags = TILE_IS_PASSABLE | TILE_IS_TRANSPARENT;
-	if (to_free) free(level->features[f_id]);
-	level->features[f_id] = 0;
-	level->cur_features--;
+	level->features[feature->id] = 0;
+	--level->cur_features;
 	return ALL_GOOD;
 }
 
@@ -128,8 +138,9 @@ Level* create_blank_level(int sx, int sy)
 {
 	Level* level = (Level*)malloc(sizeof(Level));
 	strncpy(level->name, "blank_level", 50);
-	level->type = 1;
+	level->type = -1;
 	level->floor_ch = '.';
+	level->water_ch = '~';
 	level->size_x = sx;
 	level->size_y = sy;
 
@@ -137,7 +148,7 @@ Level* create_blank_level(int sx, int sy)
 	level->map = (Tile*)malloc(sizeof(Tile) * sx * sy);
 	for (int i = 0; i < sx*sy; ++i)
 	{
-		level->map[i].ch = CHAR_FLOOR;
+		level->map[i].ch = level->floor_ch;
 		level->map[i].creature_id = -1;
 		level->map[i].feature_id = -1;
 		level->map[i].flags = TILE_IS_PASSABLE | TILE_IS_TRANSPARENT;
@@ -177,52 +188,52 @@ int delete_level(Level* level, int free_level)
 
 
 // tested
-int level_move_creature(Level* level, int c_id, int x, int y)
+int level_move_creature(Level* level, Creature* creature, int x, int y)
 {
 	Tile* dest_tile = GET_TILE(level, x, y);
 	if (dest_tile->creature_id != -1) return TILE_IS_OCCUPIED;
-	GET_TILE(level, level->creatures[c_id]->pos_x, level->creatures[c_id]->pos_y)->creature_id = -1;
-	dest_tile->creature_id = c_id;
-	level->creatures[c_id]->pos_x = x;
-	level->creatures[c_id]->pos_y = y;
+	GET_TILE(level, creature->pos_x, creature->pos_y)->creature_id = -1;
+	dest_tile->creature_id = creature->id;
+	creature->pos_x = x;
+	creature->pos_y = y;
 	return ALL_GOOD;
 }
 
 
 // tested
-int level_move_item(Level* level, int i_id, int x, int y)
+int level_move_item(Level* level, Item* item, int x, int y)
 {
 	Tile* dest_tile = GET_TILE(level, x, y);
-	Tile* cur_tile = GET_TILE(level, level->items[i_id]->pos_x, level->items[i_id]->pos_y);
+	Tile* cur_tile = GET_TILE(level, item->pos_x, item->pos_y);
 	if (dest_tile->items_number >= MAX_ITEMS_ON_TILE) return TOO_MANY_ITEMS_ON_TILE;
 	for (int i = 0; i < MAX_ITEMS_ON_TILE; ++i)
-		if (cur_tile->item_ids[i] == i_id)
+		if (cur_tile->item_ids[i] == item->id)
 		{
 			for (int j = i; j < MAX_ITEMS_ON_TILE-1; ++j)
 				cur_tile->item_ids[j] = cur_tile->item_ids[j+1];
 			cur_tile->items_number--;
 		}
-	dest_tile->item_ids[dest_tile->items_number] = i_id;
+	dest_tile->item_ids[dest_tile->items_number] = item->id;
 	dest_tile->items_number++;
-	level->items[i_id]->pos_x = x;
-	level->items[i_id]->pos_y = y;
+	item->pos_x = x;
+	item->pos_y = y;
 	return ALL_GOOD;
 }
 
 
 // tested
-int level_move_feature(Level* level, int f_id, int x, int y)
+int level_move_feature(Level* level, Feature* feature, int x, int y)
 {
 	Tile* dest_tile = GET_TILE(level, x, y);
 	if (dest_tile->feature_id != -1) return TILE_IS_OCCUPIED;
-	Tile* cur_tile = GET_TILE(level, level->features[f_id]->pos_x, level->features[f_id]->pos_y);
-	dest_tile->feature_id = f_id;
+	Tile* cur_tile = GET_TILE(level, feature->pos_x, feature->pos_y);
+	dest_tile->feature_id = feature->id;
 	dest_tile->ch = cur_tile->ch;
 	dest_tile->flags = cur_tile->flags;
 	cur_tile->feature_id = -1;
-	cur_tile->ch = CHAR_FLOOR;
+	cur_tile->ch = level->floor_ch;
 	cur_tile->flags = TILE_IS_PASSABLE | TILE_IS_TRANSPARENT;
-	level->features[f_id]->pos_x = x;
-	level->features[f_id]->pos_y = y;
+	feature->pos_x = x;
+	feature->pos_y = y;
 	return ALL_GOOD;
 }

@@ -1,5 +1,5 @@
-#ifndef data_h
-#define data_h
+#ifndef DATA_H
+#define DATA_H
 
 #include <stdint.h>
 #include <randnum.h>

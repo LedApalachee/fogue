@@ -4,7 +4,6 @@
 #include "errors.h"
 #include "data.h"
 #include "ui.h"
-#include "creature.h"
 
 
 #define CUR_C creature_table[cur_type]
