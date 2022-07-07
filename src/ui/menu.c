@@ -41,12 +41,12 @@ void menu_add_header(Menu* menu, char* str)
 	menu->header[len] = '\0';
 	menu->header_rows = 1;
 	for (int i = 0, j = 1; i < len; ++i, ++j)
-		if (j == menu->sx || str[i] == '\n')
+		if (j > menu->sx || str[i] == '\n')
 		{
 			++menu->header_rows;
-			j = 0;
+			j = (str[i] == '\n' ? 0 : 1);
 		}
-	if (menu->flags & MENU_BORDERED) ++menu->header_rows;
+	if (menu->flags & MENU_LINE) ++menu->header_rows;
 }
 
 
@@ -66,10 +66,10 @@ void menu_add_button(Menu* menu, char* button_text, int button_value)
 	// counting how much rows in this menu a new button takes
 	new_butt->rows = 1;
 	for (int i = 0, j = 1; i < len; ++i, ++j)
-		if (j == menu->sx || button_text[i] == '\n')
+		if (j > menu->sx || button_text[i] == '\n')
 		{
 			++new_butt->rows;
-			j = 0;
+			j = (button_text[i] == '\n' ? 0 : 1);
 		}
 
 	// deciding on which page a new button is
@@ -170,26 +170,20 @@ int menu_draw(Menu* menu, int x, int y)
 	}
 	else
 	{
-		menuwin_b = 0;
 		menuwin = newwin(menu->sy, menu->sx, y, x);
 		refresh();
 	}
 
 	if (menu->header != 0)
-	{
 		wprintw(menuwin, menu->header);
-		waddch(menuwin, '\n');
-	}
 
 	if (menu->flags & MENU_LINE)
-	{
 		for (int i = 0; i < menu->sx; ++i)
-			waddch(menuwin, '-');
-	}
+			mvwaddch(menuwin, menu->header_rows-1, i, '-');
 	
-	// scrolling implementation starts here (if it even does)
 	int cur_page = menu->buttons[menu->selected].page;
 
+	int cur_rows = 0;
 	for (int i = 0; i < menu->buttons_num; ++i)
 		if (menu->buttons[i].page == cur_page)
 		{
@@ -200,7 +194,8 @@ int menu_draw(Menu* menu, int x, int y)
 				wattroff(menuwin, A_STANDOUT);
 			}
 			else wprintw(menuwin, menu->buttons[i].text);
-			waddch(menuwin, '\n');
+			cur_rows += menu->buttons[i].rows;
+			wmove(menuwin, menu->header_rows + cur_rows, 0);
 		}
 
 	if (menu->flags & MENU_BORDERED)

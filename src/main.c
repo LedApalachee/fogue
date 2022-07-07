@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ui.h"
+#include "ui/ui.h"
 #include "level.h"
 #include "errors.h"
 #include "util.h"
@@ -39,14 +39,15 @@ int main(int argc, char** argv)
 		for (int y = 0; y < level->size_y; ++y)
 			GET_TILE(level, x, y)->ch = ',' | UI_COLOR_PAIR(F_COLOR_GREEN, F_COLOR_BLACK);
 
+	// the loop:
+	// 1) update screen
+	// 2) handle input from user
+	// 3) process entities' logic
+
 	while (!quit)
 	{
 		ui_redraw_map(level);
 		ui_input(level);
-		// the loop:
-		// 1) update screen
-		// 2) handle input from user
-		// 3) process entities' logic
 	}
 
 	ui_finish();
@@ -81,7 +82,7 @@ void init_settings()
 	KEY_STAY[0] = '5';
 	KEY_STAY[1] = ' ';
 
-	KEY_EXIT_GAME[0] = 'Q';
+	KEY_EXIT_GAME[0] = 'q';
 
 	KEY_WINRESIZE[0] = '`';
 }
